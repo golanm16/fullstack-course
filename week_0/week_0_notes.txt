@@ -1,0 +1,6 @@
+key shortcuts:
+alt+down -> move line down
+ctrl+space -> show sugestions
+
+מתי שיש כמה תנאים לשים את התנאי עם הסתברות נמוכה בסוף
+
