@@ -1,6 +1,11 @@
 key shortcuts:
 alt+down -> move line down
 ctrl+space -> show sugestions
+alt+shift+f -> reformat file
 
 מתי שיש כמה תנאים לשים את התנאי עם הסתברות נמוכה בסוף
 
+let var = (flag) ? res1 : res2
+עדיף לעשות את זה תמיד רק להשמות פשוטות
+לא לעשות את זה מורכב מדי
+רק להחליף תנאי עם שורה יחידה
