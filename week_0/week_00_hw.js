@@ -19,6 +19,7 @@ console.log(fruits_string);
 
 // ex 02
 let my_string = "asdfASDF";
+let my_string_copy = my_string;
 
 let correct_guesses = 0;
 let guess_num = 0;
@@ -43,6 +44,9 @@ while (guess_num < 4) {
         console.log('guess was incorrect');
     }
 }
+console.log(`you guessed ${correct_guesses}/4 correctly from the word ${my_string_copy}`);
+console.log(`remaining letters: ${my_string}`);
+
 
 // ex 03 method #1
 
@@ -57,7 +61,7 @@ for (i = 1; i <= 100; i++) {
 }
 
 // ex 03 method #2
-
+multiplication_table = '';
 for (i = 1; i <= 100; i++) {
 
     for (j = 1; j <= 10; j++){
@@ -70,17 +74,11 @@ console.log(multiplication_table);
 
 // ex 04
 
-let line = '';
+let my_line = '';
 for (i = 1; i <= 100; i++) {
 
     for (j = 1; j <= 10; j++) {
-        if ((i + j) % 8 === 0){
-            line += 'boom'.padEnd(8);
-        }
-        else{
-            line += String(i + j).padEnd(8);
-        }
-            
+        line += ((String(i*j).includes('8'))?'boom':String(i * j)).padEnd(10);            
     }
     console.log(line);
     line = '';
