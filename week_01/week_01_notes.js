@@ -5,4 +5,3 @@ ctrl+g: jump to line
 ctrl+p: current folder files
 ctrl+shift+f: search globally 
 */
-
