@@ -29,3 +29,4 @@ min_number = Number(min_number);
 for(i=0;i<number_of_numbers;i++){
     console.log(`#${i+1}: ${min_number+Math.random()*(max_number-min_number)}`);
 }
+

@@ -1,13 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+    <style>
+        /* this defines that every <p/> in my file has the color aquamarine */
+        p {
+            color: aquamarine;
+
+        }
+
+        #x {
+            font-size: larger;
+            color: fuchsia;
+        }
+
+        img {
+            height: 100px;
+        }
+
+        button {
+            color: rgb(110, 110, 10);
+        }
+
+        .myclass {
+            background-color: royalblue;
+        }
+    </style>
 </head>
+
 <body>
-    <h1><script src="./week_01_notes.js"></script></h1>
+    <p>this is a paragraph</p>
+    <div>
+        this is a div
+        <!-- every div can have its own style-->
+        <!--the default behavior is to move line every element-->
+        <!-- every div can have its own style-->
+        <input type="text" onchange="hello_func(value)"/>
+    </div>
+    <div style="background: gray;">
+        <h1 class='myclass'>i am class</h1>
+        <p id='x'>this is paragraph x</p>
+        <p style="color: red;">this is a red paragraph</p>
+
+        <h1>
+            <!-- <script src="./week_01_notes.js"> -->
+            <script>
+                // this is written in normal js
+                function hello_func(ev){
+                    console.log(ev);
+                    document.getElementById('x').innerHTML = "this is js";
+                }
+
+            </script>
+        </h1>
+        <img src='https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png' />
+        <button>dont click me!</button>
+        <h1 class='myclass'>i am class</h1>
+
+    </div>
 </body>
+
 </html>

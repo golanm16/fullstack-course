@@ -16,7 +16,6 @@ for (i = 0; i < fruits.length; i++) {
 fruits_string = fruits.join(", ");
 console.log(fruits);
 console.log(fruits_string);
-
 // ex 02
 let my_string = "asdfASDF";
 let my_string_copy = my_string;
@@ -76,7 +75,7 @@ console.log(multiplication_table);
 
 let my_line = '';
 for (i = 1; i <= 100; i++) {
-
+    
     for (j = 1; j <= 10; j++) {
         line += ((String(i*j).includes('8'))?'boom':String(i * j)).padEnd(10);            
     }
