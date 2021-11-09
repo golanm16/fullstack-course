@@ -72,23 +72,24 @@
 // arr = rev_arr;
 // console.log(arr);
 
-// ex 04: popular number
+// // ex 04: popular number
 
-let arr=[8, 'a', 'a', 'a', 12, 8, 'a', 3, 'a', 12, 4, 9, 3];
-let popular;
-let popular_counter=0;
-let counter = 0;
-arr.sort();
-//arr.reverse();
-for(i=0;i<arr.length;i++){
-    counter++;
-    if(counter>popular_counter){
-        popular_counter = counter;
-        popular = arr[i];
-    }
-    if(arr[i+1]&&arr[i]!==arr[i+1]){
-        counter = 0;
-    }
-} 
-console.log(arr);
-console.log(`the popular item is: ${popular} and the item repeats ${popular_counter} times`);
+// let arr=[8, 'a', 'a', 'a', 12, 8, 'a', 3, 'a', 12, 4, 9, 3];
+// let popular;
+// let popular_counter=0;
+// let counter = 0;
+// arr.sort();
+// //arr.reverse();
+// for(i=0;i<arr.length;i++){
+//     counter++;
+//     if(counter>popular_counter){
+//         popular_counter = counter;
+//         popular = arr[i];
+//     }
+//     // check if the next item exists and than check if equal
+//     if(arr[i+1]&&arr[i]!==arr[i+1]){
+//         counter = 0;
+//     }
+// } 
+// console.log(arr);
+// console.log(`the popular item is: ${popular} and the item repeats ${popular_counter} times`);
