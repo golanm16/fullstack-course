@@ -5,14 +5,20 @@ let txt2 = "PIG17, bear29, BiRd8, SNAKE39, donkey14 ".toLowerCase().trim();
 
 class Animal {
     constructor(code, name) {
+        if (isNaN(code) || !Number.isInteger(code)) {
+            throw `in method Animal.constructor():\ngiven code: '${code}' is not an integer!`;
+        }
+        if (!name) {
+            throw "in method Animal.constructor():\nanimal name can't be empty";
+        }
         this.code = code;
         this.name = name;
     }
 }
 
-Animal.prototype.toString = function() {
+Animal.prototype.toString = function () {
     return `animal: code: ${this.code}, name: ${this.name}`;
-  }
+}
 
 let animals_db = [];
 
@@ -29,19 +35,27 @@ function first_number_index(str_with_num) {
 }
 
 
-
 function get_animal_with_code(animal) {
     // return the animal and the code:
     // 'code':'animal'
-    return make_record(String(animal).slice(first_number_index(animal)),
-        String(animal).slice(0, first_number_index(animal)));
+    try {
+        return make_record(String(animal).slice(first_number_index(animal)),
+            String(animal).slice(0, first_number_index(animal)));
+    } catch (e) {
+        throw `in function get_animal_with_code:\n${e}`
+    }
 }
+
 
 function sort_animals(animals_mess) {
     // sort the animals recieved in the start with my own protocol
     let animals_sorted = [];
-    for (animal of animals_mess) {
-        animals_sorted.push(get_animal_with_code(animal));
+    try {
+        for (animal of animals_mess) {
+            animals_sorted.push(get_animal_with_code(animal));
+        }
+    } catch (e) {
+        throw `in function sort_animals:\n${e}`
     }
     return animals_sorted;
 }
@@ -53,16 +67,16 @@ function sort_animals(animals_mess) {
 // if you you want to change record type, change only here
 function sort_animal_db() {
     // sort my database by code smaller -> bigger
-    animals_db = animals_db.sort((a, b) => Number(a.code) - Number(b.code));
+    animals_db.sort((a, b) => Number(a.code) - Number(b.code));
 }
+
+
 function make_record(code, name) {
-    if (isNaN(code)) {
-        throw `given code: '${code}' is not a number!`;
+    try {
+        return new Animal(code, name);
+    } catch (e) {
+        throw `in function make_record:\n${e}`
     }
-    if (!name) {
-        throw "animal name can't be empty";
-    }
-    return new Animal(code, name);
 }
 
 function get_code(record) {
@@ -77,14 +91,21 @@ function get_animal(record) {
 
 // get the aimals sorted like:
 //[ "12:dog", "3:cat", "7:lion"...
+try{
 animals_db = sort_animals((txt1.split(', ')).concat(txt2.split(', ')));
 sort_animal_db();
+}catch(e){
+    console.error(`in main code block file "animals_db.js":\n${e}`);
+}
 
 //#region commands functions
 // functions that need animal_db to exist
 // add/change here if you want to add/change commands
 
 function get_animal_by_code(code) {
+    if (isNaN(code)) {
+        throw 'animal code must be a number';
+    }
     for (rec of animals_db) {
         if (code == get_code(rec))
             return get_animal(rec);
@@ -122,8 +143,12 @@ function add_animal(code, animal_name) {
             + `record found: ${item}`;
         }
     }
-    animals_db.push(new Animal(code, animal_name));
+    try{
+    animals_db.push(make_record(code, animal_name));
     sort_animal_db();
+    }catch(e){
+        throw `in function add_animal:\n${e}`
+    }
 }
 
 function delete_animal(code) {
@@ -175,19 +200,27 @@ while (keep_going) {
         case 1:
             //1: search by animal code.
             code = prompt('enter animal code');
-
-            console.log(`animal code: ${code}.\n`
-                + `name of the animal: ${get_animal_by_code(code)}`);
+            try {
+                console.log(`animal code: ${code}.\n`
+                    + `name of the animal: ${get_animal_by_code(code)}`);
+            }
+            catch (e) {
+                console.error(`in main switch block file "animals_db.js":\n${e}`);
+            }
             break;
 
         case 2:
             //2: search by animal name.
             let animal_str = prompt('enter animal name').toLowerCase();
-
-            let animals_found = search_animals_by_string(animal_str);
-            console.log('animals found:');
-            for (rec of animals_found) {
-                console.log(rec);
+            try {
+                let animals_found = search_animals_by_string(animal_str);
+                console.log('animals found:');
+                for (rec of animals_found) {
+                    console.log(rec);
+                }
+            }
+            catch (e) {
+                console.error(`in main switch block file "animals_db.js":\n${e}`);
             }
             break;
 
@@ -195,25 +228,39 @@ while (keep_going) {
             //3: add an animal.
             let name_add = prompt("enter animal name to add");
             let code_add = prompt(`enter a code for animal ${name_add}`);
-
-            add_animal(code_add, name_add);
-            console.log(`animal ${name_add} with code ${code_add} was added succesfuly`);
+            try {
+                add_animal(code_add, name_add);
+                console.log(`animal ${name_add} with code ${code_add} was added succesfuly`);
+            }
+            catch (e) {
+                console.error(`in main code switch file "animals_db.js":\n${e}`);
+            }
             break;
 
         case 4:
             //4: remove an animal.
             console.log('remove an animal command not implemented yet');
             let code_del = prompt('enter the code of the animal you want to delete');
-            delete_animal(code_del);
+            try {
+                delete_animal(code_del);
+            }
+            catch (e) {
+                console.error(`in main switch block file "animals_db.js":\n${e}`);
+            }
             break;
         case 5:
             //5: print all the records
-            for(rec of animals_db){
-                console.log(rec.toString());
+            if (animals_db.length === 0) {
+                console.log('the database is empty');
+            }
+            else {
+                for (rec of animals_db) {
+                    console.log(rec.toString());
+                }
             }
             break;
         default:
-            console.log('irrational behavior: not supposed to get here');
+            console.log('something is wrong: not supposed to get here');
 
     }
 }
