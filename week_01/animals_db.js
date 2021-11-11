@@ -2,8 +2,16 @@
 
 let txt1 = "Dog12, CAT3, LiOn7, DolphiN11, fish6 ".toLowerCase().trim();
 let txt2 = "PIG17, bear29, BiRd8, SNAKE39, donkey14 ".toLowerCase().trim();
+let animals_db = [];
+
 
 class Animal {
+    /**
+     * a class to represent an animal entry in our database
+     * 
+     * @param {number} code the animal unique code. must be an integer.
+     * @param {string} name the animal name. can't be empty.
+     */
     constructor(code, name) {
         if (isNaN(code) || !Number.isInteger(Number(code))) {
             throw `in method Animal.constructor():\ngiven code: '${code}' is not an integer!`;
@@ -14,18 +22,20 @@ class Animal {
         this.code = code;
         this.name = name;
     }
+    toString(){
+        return `animal: code: ${this.code}, name: ${this.name}.`;
+    }
 }
 
-Animal.prototype.toString = function () {
-    return `animal: code: ${this.code}, name: ${this.name}.`;
-}
-
-let animals_db = [];
 
 //#region initial sorting methods. one time use.
+
+/**
+ * handle the sorting of the first strings variables, not for reuse.
+ * @param {string} str_with_num the string to find the number in.
+ * @returns the index of the first digit in the string, if no digit was found, returns -1.
+ */
 function first_number_index(str_with_num) {
-    // return the index of the first digit in the string
-    // if no digit was found, return -1
     for (i in str_with_num) {
         if (!isNaN(str_with_num[i])) {
             return i;
@@ -34,19 +44,27 @@ function first_number_index(str_with_num) {
     return -1;
 }
 
-
-function get_animal_with_code(animal) {
+/**
+ * takes an animal messy string and return as record. one time use.
+ * @param {string} animal_str a string of the animal name with code in the end
+ * @returns a single record of the animal
+ */
+function get_animal_with_code(animal_str) {
     // return the animal and the code:
     // 'code':'animal'
     try {
-        return make_record(String(animal).slice(first_number_index(animal)),
-            String(animal).slice(0, first_number_index(animal)));
+        return make_record(String(animal_str).slice(first_number_index(animal_str)),
+            String(animal_str).slice(0, first_number_index(animal_str)));
     } catch (e) {
         throw `in function get_animal_with_code:\n${e}`
     }
 }
 
-
+/**
+ * fixes the mess given in the ex. one.time use
+ * @param {string[]} animals_mess an unorganized array of animals as given in the ex
+ * @returns an organized array of animal records
+ */
 function sort_animals(animals_mess) {
     // sort the animals recieved in the start with my own protocol
     let animals_sorted = [];
@@ -65,12 +83,21 @@ function sort_animals(animals_mess) {
 //#region record manipulation functions.
 // the only functions that manipulate the record type
 // if you you want to change record type, change only here
+
+/**
+ * sorts the animal database in-place
+ */
 function sort_animal_db() {
     // sort my database by code smaller -> bigger
     animals_db.sort((a, b) => Number(a.code) - Number(b.code));
 }
 
-
+/**
+ * make a new record of an animal with the given values
+ * @param {number} code the animal code
+ * @param {string} name the animal name
+ * @returns a new instance of Animal with the given values
+ */
 function make_record(code, name) {
     try {
         return new Animal(code, name);
@@ -78,19 +105,27 @@ function make_record(code, name) {
         throw `in function make_record:\n${e}`
     }
 }
-
+/**
+ * 
+ * @param {Animal} record a single Animal instance
+ * @returns the animal code
+ */
 function get_code(record) {
     return String(record.code);
 }
 
+/**
+ * 
+ * @param {Animal} record a single Animal instance
+ * @returns the animal name
+ */
 function get_animal(record) {
     return String(record.name);
 }
 //#endregion
 
 
-// get the aimals sorted like:
-//[ "12:dog", "3:cat", "7:lion"...
+// get the animals from the first variable sorted in the database
 try {
     animals_db = sort_animals((txt1.split(', ')).concat(txt2.split(', ')));
     sort_animal_db();
@@ -102,6 +137,11 @@ try {
 // functions that need animal_db to exist
 // add/change here if you want to add/change commands
 
+/**
+ * 
+ * @param {number} code animal code
+ * @returns animal from the database with the given code
+ */
 function get_animal_by_code(code) {
     if (isNaN(code)) {
         throw 'animal code must be a number';
@@ -116,6 +156,11 @@ function get_animal_by_code(code) {
     throw `animal with code '${code}' was not found`;
 }
 
+/**
+ * 
+ * @param {string} str a search string 
+ * @returns a list of animals with the search string in their name
+ */
 function search_animals_by_string(str) {
     if(!str){
         throw `search string can't be empty`;
@@ -131,6 +176,12 @@ function search_animals_by_string(str) {
     }
     return animals_res;
 }
+
+/**
+ * adding an animal to the database
+ * @param {number} code animal code to add
+ * @param {string} animal_name animal name to add
+ */
 function add_animal(code, animal_name) {
     if (isNaN(code) || code === '') {
         throw `given code: '${code}' is not a number!`;
@@ -157,6 +208,11 @@ function add_animal(code, animal_name) {
     }
 }
 
+/**
+ * 
+ * @param {number} code code of the animal you want to delete from the database
+ * @returns the deleted animal
+ */
 function delete_animal(code) {
     if (isNaN(code) || code === '') {
         throw `given code: '${code}' is not a number!`;
@@ -176,10 +232,11 @@ function delete_animal(code) {
     else {
         throw `animal with code ${code} was not found for deletion`;
     }
-
 }
 
-// TODO: add try/catch to all cases
+//#endregion
+
+// the welcome message to the client that lets him choose a command
 let welcome_msg = "welcome to the animal database!\n"
     + "please enter a command:\n"
     + "1: search by animal code.\n"
@@ -188,26 +245,31 @@ let welcome_msg = "welcome to the animal database!\n"
     + "4: remove an animal.\n"
     + "5: show entire database. (may take some time)\n"
     + "0: exit database.\n";
+
+// a flag to keep the loop running. lowered when the client enters the exit(0) command
 let keep_going = true;
-let command_codes = [0, 1, 2, 3, 4, 5];
+
+// list of available commands in the script
+let command_codes = ['0', '1', '2', '3', '4', '5'];
+
 while (keep_going) {
+    // show the welcome message to the client
     cmd = prompt(welcome_msg);
 
-    if (isNaN(cmd)) {
-        console.log('command must be a number');
-        continue;
-    }
-    cmd = Number(cmd);
-    if (!command_codes.includes(cmd) || !Number.isInteger(cmd)) {
+    // check command validity
+    if (!command_codes.includes(cmd)) {
         console.log(`command must be one of the following: ${command_codes}`);
         continue;
     }
+
+    // execute command
     switch (cmd) {
-        case 0:
+        case '0':
             //0: exit database.
             keep_going = false;
+            console.log('exiting database...');
             break;
-        case 1:
+        case '1':
             //1: search by animal code.
             code = prompt('enter animal code');
             try {
@@ -220,7 +282,7 @@ while (keep_going) {
             }
             break;
 
-        case 2:
+        case '2':
             //2: search by string.
             let animal_str = prompt('enter string to search in aninal names').toLowerCase();
             try {
@@ -236,7 +298,7 @@ while (keep_going) {
             }
             break;
 
-        case 3:
+        case '3':
             //3: add an animal.
             let name_add = prompt("enter animal name to add");
             let code_add = prompt(`enter a code for animal ${name_add}`);
@@ -250,7 +312,7 @@ while (keep_going) {
             }
             break;
 
-        case 4:
+        case '4':
             //4: remove an animal.
             let code_del = prompt('enter the code of the animal you want to delete');
             try {
@@ -261,7 +323,7 @@ while (keep_going) {
                 console.error(`in remove an animal file "animals_db.js":\n${e}`);
             }
             break;
-        case 5:
+        case '5':
             //5: print all the records
             if (animals_db.length === 0) {
                 console.log('the database is empty');
@@ -275,7 +337,7 @@ while (keep_going) {
             }
             break;
         default:
-            console.error('something is wrong: not supposed to get here');
+            console.error('something went wrong: not supposed to get here');
 
     }
 }
