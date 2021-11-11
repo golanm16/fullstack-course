@@ -5,7 +5,7 @@ let txt2 = "PIG17, bear29, BiRd8, SNAKE39, donkey14 ".toLowerCase().trim();
 
 class Animal {
     constructor(code, name) {
-        if (isNaN(code) || !Number.isInteger(code)) {
+        if (isNaN(code) || !Number.isInteger(Number(code))) {
             throw `in method Animal.constructor():\ngiven code: '${code}' is not an integer!`;
         }
         if (!name) {
@@ -17,7 +17,7 @@ class Animal {
 }
 
 Animal.prototype.toString = function () {
-    return `animal: code: ${this.code}, name: ${this.name}`;
+    return `animal: code: ${this.code}, name: ${this.name}.`;
 }
 
 let animals_db = [];
@@ -91,10 +91,10 @@ function get_animal(record) {
 
 // get the aimals sorted like:
 //[ "12:dog", "3:cat", "7:lion"...
-try{
-animals_db = sort_animals((txt1.split(', ')).concat(txt2.split(', ')));
-sort_animal_db();
-}catch(e){
+try {
+    animals_db = sort_animals((txt1.split(', ')).concat(txt2.split(', ')));
+    sort_animal_db();
+} catch (e) {
     console.error(`in main code block file "animals_db.js":\n${e}`);
 }
 
@@ -106,6 +106,9 @@ function get_animal_by_code(code) {
     if (isNaN(code)) {
         throw 'animal code must be a number';
     }
+    if(!code){
+        throw `animal code can't be empty`;
+    }
     for (rec of animals_db) {
         if (code == get_code(rec))
             return get_animal(rec);
@@ -114,6 +117,9 @@ function get_animal_by_code(code) {
 }
 
 function search_animals_by_string(str) {
+    if(!str){
+        throw `search string can't be empty`;
+    }
     let animals_res = [];
     for (rec of animals_db) {
         if (get_animal(rec).includes(str)) {
@@ -143,15 +149,18 @@ function add_animal(code, animal_name) {
             + `record found: ${item}`;
         }
     }
-    try{
-    animals_db.push(make_record(code, animal_name));
-    sort_animal_db();
-    }catch(e){
+    try {
+        animals_db.push(make_record(code, animal_name));
+        sort_animal_db();
+    } catch (e) {
         throw `in function add_animal:\n${e}`
     }
 }
 
 function delete_animal(code) {
+    if (isNaN(code) || code === '') {
+        throw `given code: '${code}' is not a number!`;
+    }
     let delete_index = null;
     for (i in animals_db) {
         if (get_code(animals_db[i]) === code) {
@@ -180,6 +189,7 @@ let welcome_msg = "welcome to the animal database!\n"
     + "5: show entire database. (may take some time)\n"
     + "0: exit database.\n";
 let keep_going = true;
+let command_codes = [0, 1, 2, 3, 4, 5];
 while (keep_going) {
     cmd = prompt(welcome_msg);
 
@@ -188,8 +198,8 @@ while (keep_going) {
         continue;
     }
     cmd = Number(cmd);
-    if (cmd < 0 || cmd > 5 || !Number.isInteger(cmd)) {
-        console.log('command must be an integer between 0 and 4');
+    if (!command_codes.includes(cmd) || !Number.isInteger(cmd)) {
+        console.log(`command must be one of the following: ${command_codes}`);
         continue;
     }
     switch (cmd) {
@@ -201,18 +211,20 @@ while (keep_going) {
             //1: search by animal code.
             code = prompt('enter animal code');
             try {
+                console.log(`searching animal by code ${code}...`);
                 console.log(`animal code: ${code}.\n`
                     + `name of the animal: ${get_animal_by_code(code)}`);
             }
             catch (e) {
-                console.error(`in main switch block file "animals_db.js":\n${e}`);
+                console.error(`in search by animal code file "animals_db.js":\n${e}`);
             }
             break;
 
         case 2:
-            //2: search by animal name.
-            let animal_str = prompt('enter animal name').toLowerCase();
+            //2: search by string.
+            let animal_str = prompt('enter string to search in aninal names').toLowerCase();
             try {
+                console.log(`searching animal by string ${animal_str}...`);
                 let animals_found = search_animals_by_string(animal_str);
                 console.log('animals found:');
                 for (rec of animals_found) {
@@ -220,7 +232,7 @@ while (keep_going) {
                 }
             }
             catch (e) {
-                console.error(`in main switch block file "animals_db.js":\n${e}`);
+                console.error(`in search by string file "animals_db.js":\n${e}`);
             }
             break;
 
@@ -229,23 +241,24 @@ while (keep_going) {
             let name_add = prompt("enter animal name to add");
             let code_add = prompt(`enter a code for animal ${name_add}`);
             try {
+                console.log(`attempting to add animal: ${code_add}: ${name_add}...`);
                 add_animal(code_add, name_add);
                 console.log(`animal ${name_add} with code ${code_add} was added succesfuly`);
             }
             catch (e) {
-                console.error(`in main code switch file "animals_db.js":\n${e}`);
+                console.error(`in add an animal file "animals_db.js":\n${e}`);
             }
             break;
 
         case 4:
             //4: remove an animal.
-            console.log('remove an animal command not implemented yet');
             let code_del = prompt('enter the code of the animal you want to delete');
             try {
-                delete_animal(code_del);
+                console.log(`attempting to delete animal with code: ${code_del}...`);
+                console.log(`successfuly deleted: ${delete_animal(code_del)}`);;
             }
             catch (e) {
-                console.error(`in main switch block file "animals_db.js":\n${e}`);
+                console.error(`in remove an animal file "animals_db.js":\n${e}`);
             }
             break;
         case 5:
@@ -254,13 +267,15 @@ while (keep_going) {
                 console.log('the database is empty');
             }
             else {
+                console.log('showing the full animal database:');
                 for (rec of animals_db) {
                     console.log(rec.toString());
                 }
+                console.log(`the database currently has ${animals_db.length} entries.`);
             }
             break;
         default:
-            console.log('something is wrong: not supposed to get here');
+            console.error('something is wrong: not supposed to get here');
 
     }
 }
