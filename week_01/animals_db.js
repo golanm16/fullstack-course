@@ -1,7 +1,7 @@
 // author: golan
 
-let txt1 = "Dog12, CAT3, LiOn7, DolphiN11, fish6 ".toLowerCase().trim();
-let txt2 = "PIG17, bear29, BiRd8, SNAKE39, donkey14 ".toLowerCase().trim();
+let txt1 = "Dog12, CAT3, LiOn7, DolphiN11, fish6 ".trim();
+let txt2 = "PIG17, bear29, BiRd8, SNAKE39, donkey14 ".trim();
 let animals_db = [];
 
 
@@ -143,8 +143,8 @@ try {
  * @returns animal from the database with the given code
  */
 function get_animal_by_code(code) {
-    if (isNaN(code)) {
-        throw 'animal code must be a number';
+    if (isNaN(code)||!Number.isInteger(code)) {
+        throw 'animal code must be an integer';
     }
     if(!code){
         throw `animal code can't be empty`;
@@ -284,7 +284,7 @@ while (keep_going) {
 
         case '2':
             //2: search by string.
-            let animal_str = prompt('enter string to search in aninal names').toLowerCase();
+            let animal_str = prompt('enter string to search in aninal names');
             try {
                 console.log(`searching animal by string ${animal_str}...`);
                 let animals_found = search_animals_by_string(animal_str);
@@ -330,8 +330,8 @@ while (keep_going) {
             }
             else {
                 console.log('showing the full animal database:');
-                for (rec of animals_db) {
-                    console.log(rec.toString());
+                for (i in animals_db) {
+                    console.log(`#(${i}) ${animals_db[i].toString()}`);
                 }
                 console.log(`the database currently has ${animals_db.length} entries.`);
             }
@@ -341,7 +341,3 @@ while (keep_going) {
 
     }
 }
-
-
-
-
