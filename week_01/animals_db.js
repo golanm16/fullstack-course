@@ -124,7 +124,6 @@ function get_animal(record) {
 }
 //#endregion
 
-
 // get the animals from the first variable sorted in the database
 try {
     animals_db = sort_animals((txt1.split(', ')).concat(txt2.split(', ')));
@@ -143,8 +142,8 @@ try {
  * @returns animal from the database with the given code
  */
 function get_animal_by_code(code) {
-    if (isNaN(code)||!Number.isInteger(code)) {
-        throw 'animal code must be an integer';
+    if (isNaN(code)||!Number.isInteger(Number(code))) {
+        throw 'in func get_animal_by_code:\n animal code must be an integer';
     }
     if(!code){
         throw `animal code can't be empty`;
