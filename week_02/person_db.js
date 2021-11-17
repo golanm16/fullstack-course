@@ -1,14 +1,18 @@
 import { is_valid_month, is_valid_day, is_valid_name, is_valid_id } from './validity_checks.js';
 
-function generate_people() {
-  return [
-    new Person('Sason', 'Yaakov', 123456789, "Be'er Sheva", new BirthDate(15, 5, 1998)),
-    new Person('gila', 'bueno', 458549870, "Be'er yaakov", new BirthDate(24, 8, 1992)),
-    new Person('mani', 'mono', 845879851, 'shaar binyamin', new BirthDate(1, 5, 1985), 123456789),
-    new Person('mina', 'teqala', 558406589, 'Tel Aviv', new BirthDate(5, 11, 2003), 845879851),
-    new Person('juju', 'hita', 854789658, 'new new york', new BirthDate(11, 8, 1991)),
-    new Person('yehezkel', 'zrubavelovich', 987654321, 'dimona', new BirthDate(10, 2, 1999))
-  ]
+function generate_people(users_db) {
+  add_user(users_db,
+    'Sason', 'Yaakov', 123456789, "Be'er Sheva", 15, 5, 1998);
+  add_user(users_db,
+    'gila', 'bueno', 458549870, "Be'er yaakov", 24, 8, 1992);
+  add_user(users_db,
+    'mani', 'mono', 845879851, 'shaar binyamin', 1, 5, 1985), 123456789;
+  add_user(users_db,
+    'mina', 'teqala', 558406589, 'Tel Aviv', 5, 11, 2003), 845879851;
+  add_user(users_db,
+    'juju', 'hita', 854789658, 'new new york', 11, 8, 1991);
+  add_user(users_db,
+    'yehezkel', 'zrubavelovich', 987654321, 'dimona', 10, 2, 1999);
 }
 
 
@@ -23,6 +27,9 @@ class BirthDate {
     this.day = day;
     this.month = month;
     this.year = year;
+  }
+  toString(){
+    return `${this.day}.${this.month}.${this.year}`;
   }
 }
 
@@ -57,7 +64,7 @@ function add_user(db, first_name, last_name, id, city,
   try {
     // database related properties check
     // check that id is not in the database
-    for (db_id of db.map(p => p.id)) {
+    for (const db_id of db.map(p => p.id)) {
       if (id === db_id) {
         throw 'id already exists in database';
       }
@@ -65,7 +72,7 @@ function add_user(db, first_name, last_name, id, city,
     // check that parent id exists, there is a person in the database with this id
     if (parent_id) {
       parent_id_exists = false;
-      for (user of db) {
+      for (const user of db) {
         if (user.id === id) {
           parent_id_exists = true;
           break;
@@ -83,10 +90,12 @@ function add_user(db, first_name, last_name, id, city,
 }
 
 function main() {
-  const user_db = generate_people();
-
+  const user_db = [];
+  generate_people(user_db);
+  console.table(user_db);
+  console.log(user_db[0].birth_date);
 }
 
-let user_db = generate_people();
-console.table(user_db);
-//main();
+// let user_db = generate_people();
+// console.table(user_db);
+main();
