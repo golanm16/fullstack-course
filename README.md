@@ -5,26 +5,30 @@
 
 # 📚 fullstack course 2021
 
-
 ## 📖 my homework files:
+
 ### 0️⃣ week 00:
 
 [📒 ex 1-4](week_00/week_00_hw.js)
+
 - ex 01: fruit string
 - ex 02: guess characters from my string
 - ex 03: multiplication table
 - ex 04: 8 boom
 
 [📒 ex 05](week_00/week_00_hw_math.js)
+
 - ex 05: get a random number using Math
 
 ### 1️⃣ week 01:
+
 [📒 animals database](week_01/animals_db.js)
+
 - ex: get a list of animals and make a primitive database
 
 ### 2️⃣ week 02:
-TBD
 
+TBD
 
 ## 🎧 my coding soundtracks
 
@@ -34,4 +38,13 @@ TBD
 
 <a href="https://open.spotify.com/playlist/37i9dQZF1DWU0ScTcjJBdj">
   <img src="https://i.scdn.co/image/ab67706f000000031932c7ea794e72d82b10692c" alt="relax & unwind spotify playlist" height="150">
+ </a>
+
+## 🎙 my podcasts
+
+<a href="https://open.spotify.com/show/4XPl3uEEL9hvqMkoZrzbx5">
+  <img src="https://i.scdn.co/image/ab67656300005f1f11874ad24c1dcac2ace8d4c9" alt="darknet diaries podcast" height="150">
+ </a>
+<a href="https://open.spotify.com/show/44Mg6W7BrmDtJuuWF7H4b2">
+  <img src="https://i.scdn.co/image/321f42b88e6f6b19148d023d79de7ca916e4c152" alt="pocket animals podcast" height="150">
  </a>
