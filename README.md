@@ -1,26 +1,37 @@
 <a href="https://classroom.google.com/c/NDA4NzY4OTU2Mzkz">
   <img src="https://lh3.googleusercontent.com/-QO_htsTEOuU/YWu9EpBu60I/AAAAAAAAAcM/ye-xNHdbTgAr26SeMuIY6SiBb8mCVV10wCMACGAYYCw/s1280/beta_binyaminTech_logo%2B%25281%2529-page-001%2B%25281%2529.jpg" alt="Logo" >
 </a>
-(☝️its a link to the classroom)
+(its a link to the classroom☝️)
 
-# fullstack course 2021
+# 📚 fullstack course 2021
 
 
-## my homework files:
-### week 0:
+## 📖 my homework files:
+### 0️⃣ week 00:
 
-[ex 1-4](week_00/week_00_hw.js)
+[📒 ex 1-4](week_00/week_00_hw.js)
 - ex 01: fruit string
 - ex 02: guess characters from my string
 - ex 03: multiplication table
 - ex 04: 8 boom
 
-[ex 05](week_00/week_00_hw_math.js)
+[📒 ex 05](week_00/week_00_hw_math.js)
 - ex 05: get a random number using Math
 
-### week 1:
-[animals database](week_01/animals_db.js)
+### 1️⃣ week 01:
+[📒 animals database](week_01/animals_db.js)
 - ex: get a list of animals and make a primitive database
 
-### week 2:
+### 2️⃣ week 02:
 TBD
+
+
+## 🎧 my coding soundtracks
+
+<a href="http://www.youtube.com/watch?v=5qap5aO4i9A">
+  <img src="https://thumbs.gfycat.com/AgedMiniatureBoto-max-1mb.gif" alt="lofi girl youtube livestream" height="150">
+ </a>
+
+<a href="https://open.spotify.com/playlist/37i9dQZF1DWU0ScTcjJBdj">
+  <img src="https://i.scdn.co/image/ab67706f000000031932c7ea794e72d82b10692c" alt="relax & unwind spotify playlist" height="150">
+ </a>
