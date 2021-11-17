@@ -30,6 +30,8 @@
 
 [📒 people database (under development)](week_02/person_db.js)
 
+- ex: maintain a database of users/people
+
 ## 🎧 my coding soundtracks
 
 <a href="http://www.youtube.com/watch?v=5qap5aO4i9A">
