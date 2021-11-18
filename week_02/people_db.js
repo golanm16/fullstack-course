@@ -85,7 +85,7 @@ function add_user(first_name, last_name, id, city,
       throw `id ${id} already exists in database`;
     }
     // check that if parent id exists, there is a person in the database with this id
-    if (parent_id && !USER_DB.map(p => p.id).includes(parent_id)) {
+    if (parent_id && !USER_DB.some(p => p.id == parent_id)) {
       throw `parent id ${parent_id} not in the database`;
     }
     USER_DB.push(new Person(first_name, last_name, id, city,
@@ -162,7 +162,7 @@ function print_multi_user(users) {
  */
 function search_user_by_id(user_id) {
   try {
-    return USER_DB[get_user_index(user_id)];
+    return USER_DB[get_user_index(Number(user_id))];
   } catch (e) {
     console.error(`Error searching for user ${user_id}:\n${e}`)
   }
@@ -180,10 +180,76 @@ function search_user_by_str(str) {
   return msg;
 }
 
+const COMMANDS = ['0', '1', '2', '3', '4', '5', '9'];
+
 function main() {
   generate_people(USER_DB);
   console.table(USER_DB);
+  let welcome_msg = `welcome to the people database made by golan.
+  available commands:
+  [1] search user by id.
+  [2] search user by string.
+  [3] add new user.
+  [4] delete existing user.
+  [5] edit existing user.
+  [9] show full database(may take some time).
+  [0] exit.`;
+  let keep_going = true;
+  while (keep_going) {
+    let user_input = get_input(welcome_msg);
+    if (user_input == 0) {
+      break;
+    }
+    if (!COMMANDS.includes(user_input)) {
+      console.error(`${user_input} is an urecognized command.`);
+      continue;
+    }
+    switch (user_input) {
+      case '0':
+        //exit
+        keep_going = false;
+        break;
+      case '1':
+        //search user by id
+        let id = get_input('enter user id to search');
+        let see_children = get_input('do you want to see his kids? y/n')
+        let if_children = false;
+        if (see_children == 'y') {
+          if_children = true;
+        }
+        console.log(print_user(id, if_children));
+        break;
+      case '2':
+        //search user by string
+        let str = get_input('enter string to search in users');
+        console.log(search_user_by_str(str));
+        break;
+      case '3':
+        //add new user
+        let input = get_input(`enter first_name last_name id city day month year parent_id
+        with space in between`);
+        let arr = input.split(' ');
+        // asd asd 123132123 asd 1 1 2000
+        // asda asda 223132123 asda 1 1 2000 123132123
+        console.log(arr);
+        add_user(arr[0], arr[1], arr[2], arr[3]
+          , arr[4], arr[5], arr[6], arr[7]);
+        break;
+      case '4':
+        //delete existing user
+        break;
+      case '5':
+        //edit existing user
+        break;
+      case '9':
+        //show full database(may take some time)
+        console.table(USER_DB);
+        break;
+      default:
+      //dont get in here
+    }
 
+  }
 }
 
 // let user_db = generate_people();
