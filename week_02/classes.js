@@ -36,10 +36,10 @@ class Person {
         }
         this.first_name = first_name;
         this.last_name = last_name;
-        this.id = id;
+        this.id = Number(id);
         this.city = city;
         this.birth_date = birth_date;
-        this.parent_id = parent_id ? parent_id : "0";
+        this.parent_id = parent_id ? Number(parent_id) : "0";
     }
 }
 
