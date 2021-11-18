@@ -1,5 +1,22 @@
 import { is_valid_month, is_valid_day, is_valid_name, is_valid_id } from './validity_checks.js';
 
+/**
+ * 
+ * @param {BirthDate} bday 
+ */
+function calc_age(bday) {
+    let has_bday_passed = false;
+    const curr_date = new Date();
+    has_bday_passed = curr_date.getMonth() - bday.month > 0
+    if(curr_date.getMonth() == bday.month){
+        has_bday_passed =  curr_date.getDay() - bday.day > 0
+    }
+    if(has_bday_passed){
+        return curr_date.getFullYear()-bday.year;
+    }
+    return curr_date.getFullYear()-bday.year-1;
+}
+
 class BirthDate {
     /**
      * 
@@ -61,6 +78,7 @@ class Person {
 id: ${this.id},
 name: ${this.first_name} ${this.last_name},
 city of residence: ${this.city},
+age: ${calc_age(this.birth_date)}
 date of birth: ${this.birth_date},
 has parent? ${this.parent_id == 0 ? 'no.' : `yes,
 parent id: ${this.parent_id}.`}`;

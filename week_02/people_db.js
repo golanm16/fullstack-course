@@ -15,19 +15,19 @@ function generate_people() {
 
   add_user('mina', 'teqala', 558406589, 'Tel Aviv', 5, 11, 2003, 845879851);
 
-  add_user('juju', 'hita', 854789658, 'new new york', 11, 8, 1991, 558406589);
+  add_user('juju', 'hita', 854789658, 'new new york', 11, 12, 1991, 558406589);
 
-  add_user('yehezkel', 'zrubavelovich', 987654321, 'dimona', 10, 2, 1999);
+  add_user('yehezkel', 'zrubavelovich', 987654321, 'dimona', 10, 12, 1999);
 
   try {
-    add_user(  'a', 'a', 987654321, 'a', 1, 1, 2001);
+    add_user('a', 'a', 987654321, 'a', 1, 1, 2001);
   } catch (e) {
     console.error(`error generating people:\n${e}`);
   }
 
   delete_user(987654321);
   //delete_user(users_db,558406589);
-  
+
 
   try {
     add_user('a', 'a', 987654321, 'a', 1, 1, 2001);
@@ -42,7 +42,9 @@ function generate_people() {
   } catch (e) {
     console.error(`error editing user:\n${e}`);
   }
-  console.log(search_user(845879851).toString());
+  console.log(print_user(123456789, true));
+
+  console.log(search_user_by_str('l'));
 }
 
 /**
@@ -57,6 +59,10 @@ function get_user_index(user_id) {
 user with id ${user_id} was not fount in the database.`
   }
   return index;
+}
+
+function get_user_children(user_id) {
+  return USER_DB.filter(p => p.parent_id == user_id);
 }
 
 /**
@@ -96,9 +102,9 @@ function delete_user(user_id) {
   try {
     let user_index = get_user_index(user_id);
     // delete his children form the db using recursion
-    USER_DB.filter(p => p.parent_id == user_id)
+    get_user_children(user_id)
       .forEach(child => delete_user(child.id));
-    
+
     // delete the user
     USER_DB.splice(user_index, 1);
 
@@ -132,26 +138,52 @@ function get_input(msg) {
   return prompt(msg);
 }
 
+function print_user(user_id, print_children) {
+  let msg = search_user_by_id(user_id).toString();
+  if (print_children) {
+    let children_msg = '';
+    let childern = get_user_children(user_id);
+    msg += childern.length != 0 ?
+      `\nchildren:\n${print_multi_user(childern)}` : `\nno children found`;
+  }
+  return msg;
+}
+
+function print_multi_user(users) {
+  // added '[1] ' because the first item is the accumulator, and ignores my formatting
+  return '[1]\n' + users
+    .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}\n`);
+}
+
 /**
  * 
  * @param {number} user_id 
  * @returns the user with the given id
  */
-function search_user(user_id) {
-  try{
-  return USER_DB[get_user_index(user_id)];
-  }catch(e){
+function search_user_by_id(user_id) {
+  try {
+    return USER_DB[get_user_index(user_id)];
+  } catch (e) {
     console.error(`Error searching for user ${user_id}:\n${e}`)
   }
+}
+
+function search_user_by_str(str) {
+  let msg = '';
+  let users_res = USER_DB
+    .filter(p => p.first_name.includes(str) || p.last_name.includes(str));
+  if (users_res.length == 0) {
+    msg = `no users were found with '${str}' in their names.\n`;
+  } else {
+    msg = `results were found with '${str}':\n${print_multi_user(users_res)}`;
+  }
+  return msg;
 }
 
 function main() {
   generate_people(USER_DB);
   console.table(USER_DB);
-  console.log(USER_DB[0].birth_date.toString());
-  console.log(USER_DB[2].toString());
-  console.table(USER_DB);
-  
+
 }
 
 // let user_db = generate_people();
