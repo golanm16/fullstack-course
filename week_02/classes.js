@@ -1,6 +1,12 @@
 import { is_valid_month, is_valid_day, is_valid_name, is_valid_id } from './validity_checks.js';
 
 class BirthDate {
+    /**
+     * 
+     * @param {number} day day of the month (1-31)
+     * @param {number} month month of the year (1-12)
+     * @param {nUmber} year year
+     */
     constructor(day, month, year) {
         if (!is_valid_day(day)) {
             throw `${day} is an invalid birthdate day`;
@@ -18,6 +24,15 @@ class BirthDate {
 }
 
 class Person {
+    /**
+     * 
+     * @param {string} first_name the first name of the person
+     * @param {string} last_name the last name of the person
+     * @param {number} id person id - unique key
+     * @param {string} city the person city of residence
+     * @param {BirthDate} birth_date the date of birth
+     * @param {number} parent_id id of the parent, if no parent exist than 0
+     */
     constructor(first_name, last_name, id, city, birth_date, parent_id) {
         if (!is_valid_name(first_name)) {
             throw `${first_name} is an invalid string for first name`;
@@ -39,8 +54,17 @@ class Person {
         this.id = Number(id);
         this.city = city;
         this.birth_date = birth_date;
-        this.parent_id = parent_id ? Number(parent_id) : "0";
+        this.parent_id = parent_id ? Number(parent_id) : 0;
+    }
+    toString() {
+        return `person:
+id: ${this.id},
+name: ${this.first_name} ${this.last_name},
+city of residence: ${this.city},
+date of birth: ${this.birth_date},
+has parent? ${this.parent_id == 0 ? 'no.' : `yes,
+parent id: ${this.parent_id}.`}`;
     }
 }
 
-export {Person, BirthDate};
+export { Person, BirthDate };
