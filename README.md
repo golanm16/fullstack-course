@@ -28,7 +28,7 @@
 
 ### 2️⃣ week 02:
 
-[📒 people database (under development)](week_02/person_db.js)
+[📒 people database (under development)](week_02/people_db.js)
 
 - ex: maintain a database of users/people
 

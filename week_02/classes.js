@@ -7,14 +7,14 @@ import { is_valid_month, is_valid_day, is_valid_name, is_valid_id } from './vali
 function calc_age(bday) {
     let has_bday_passed = false;
     const curr_date = new Date();
-    has_bday_passed = curr_date.getMonth() - bday.month > 0
-    if(curr_date.getMonth() == bday.month){
-        has_bday_passed =  curr_date.getDay() - bday.day > 0
+    has_bday_passed = curr_date.getMonth() + 1 - bday.month > 0
+    if (curr_date.getMonth() == bday.month) {
+        has_bday_passed = curr_date.getDate() - bday.day > 0
     }
-    if(has_bday_passed){
-        return curr_date.getFullYear()-bday.year;
+    if (has_bday_passed) {
+        return curr_date.getFullYear() - bday.year;
     }
-    return curr_date.getFullYear()-bday.year-1;
+    return curr_date.getFullYear() - bday.year - 1;
 }
 
 class BirthDate {
@@ -29,7 +29,7 @@ class BirthDate {
             throw `${day} is an invalid birthdate day`;
         }
         if (!is_valid_month(month)) {
-            throw `${day} is an invalid birthdate month`;
+            throw `${month} is an invalid birthdate month`;
         }
         this.day = day;
         this.month = month;

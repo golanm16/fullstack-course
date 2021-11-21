@@ -31,6 +31,7 @@ function generate_people() {
   console.log(search_user_by_str('l'));
 }
 
+//#region helper functions for main
 /**
  * 
  * @param {number} user_id the user id to look for
@@ -48,7 +49,9 @@ user with id ${user_id} was not fount in the database.`
 function get_user_children(user_id) {
   return USER_DB.filter(p => p.parent_id == user_id);
 }
+//#endregion
 
+//#region main functions for EX
 /**
  * 
  * @param {string} first_name 
@@ -121,14 +124,6 @@ function edit_user(user_id, first_name, last_name, city) {
   }
 }
 
-function get_input(msg) {
-  return prompt(msg);
-}
-
-function print(msg) {
-  console.log(msg);
-}
-
 function print_user(user_id, print_children) {
   let msg = search_user_by_id(user_id).toString();
   if (print_children) {
@@ -137,14 +132,6 @@ function print_user(user_id, print_children) {
       `\nchildren:\n${print_multi_user(childern)}` : `\nno children found`;
   }
   return msg;
-}
-
-function print_multi_user(users) {
-  // added '[1] ' because the first item is the accumulator, 
-  // and ignores my formatting inside the reduce
-
-  return users.length == 0 ? '' : '[1]\n' + users
-    .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}\n`);
 }
 
 /**
@@ -171,6 +158,24 @@ function search_user_by_str(str) {
   }
   return msg;
 }
+//#endregion
+
+
+function get_input(msg) {
+  return prompt(msg);
+}
+
+function print(msg) {
+  console.log(msg);
+}
+
+function print_multi_user(users) {
+  // added '[1] ' because the first item is the accumulator, 
+  // and ignores my formatting inside the reduce
+
+  return users.length == 0 ? '' : '[1]\n' + users
+    .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}\n`);
+}
 
 const COMMANDS = ['0', '1', '2', '3', '4', '5', '9'];
 
@@ -188,43 +193,35 @@ function main() {
   [0] exit.`;
   let keep_going = true;
   while (keep_going) {
+    // start getting user commands and act by them
     let user_input = get_input(welcome_msg);
+    // if command is no in recognized commands
     if (!COMMANDS.includes(user_input)) {
       console.error(`'${user_input}' is an urecognized command.`);
       continue;
     }
-    console.log({user_input});
-    if (user_input===null||user_input==='') {
-      //exit
-      print(`exiting database...`)
-      keep_going = false;
-      break;
-    }
+    // act by command
     switch (user_input) {
-      case null:
       case '0':
-      case null:
-        //exit
+      //exit
         print(`exiting database...`)
         keep_going = false;
         break;
       case '1':
-        //search user by id
+      // search user by id
+        // get user id
         let id = get_input('enter user id to search');
-        let see_children = get_input('do you want to see his kids? y/n')
-        let if_children = false;
-        if (see_children == 'y') {
-          if_children = true;
-        }
+        // ask if he wants to see the person children
+        let see_children = confirm('do you want to see his kids?')
         try {
-          print(print_user(id, if_children));
+          print(print_user(id, see_children));
         }
         catch (e) {
           console.error(`Error while searching fr user by id: ${e}`);
         }
         break;
       case '2':
-        //search user by string
+      //search user by string
         let str = get_input('enter string to search in users');
         try {
           print(search_user_by_str(str));
@@ -234,11 +231,9 @@ function main() {
         }
         break;
       case '3':
-        //add new user
+      //add new user
         let input = get_input('enter:\nfirst_name last_name id city day month year parent_id with space in between');
         let arr = input.split(' ');
-        // asd asd 123132123 asd 1 1 2000
-        // asda asda 223132123 asda 1 1 2000 123132123
         console.log(arr);
         try {
           console.log(`adding user:`);
