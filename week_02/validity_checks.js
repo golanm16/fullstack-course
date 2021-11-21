@@ -7,7 +7,7 @@ function is_valid_id(id) {
 }
 
 function is_valid_name(name) {
-    return name && isNaN(name) && !/\d/.test(name)
+    return name && isNaN(name) && !/[a-zA-Z]+/.test(name)
 }
 
 function is_valid_day(day) {
