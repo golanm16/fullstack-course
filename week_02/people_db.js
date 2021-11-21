@@ -19,29 +19,13 @@ function generate_people() {
 
   add_user('yehezkel', 'zrubavelovich', 987654321, 'dimona', 10, 12, 1999);
 
-  try {
-    add_user('a', 'a', 987654321, 'a', 1, 1, 2001);
-  } catch (e) {
-    console.error(`error generating people:\n${e}`);
-  }
 
   delete_user(987654321);
   //delete_user(users_db,558406589);
 
 
-  try {
-    add_user('a', 'a', 987654321, 'a', 1, 1, 2001);
-  } catch (e) {
-    console.error(`error generating people:\n${e}`);
-  }
-
   edit_user(123456789, '', '', 'zichron');
 
-  try {
-    edit_user(987654322, 'a', 1, 1, 2001);
-  } catch (e) {
-    console.error(`error editing user:\n${e}`);
-  }
   console.log(print_user(123456789, true));
 
   console.log(search_user_by_str('l'));
@@ -95,7 +79,7 @@ function add_user(first_name, last_name, id, city,
   }
 }
 /**
- * delete a usr from a database
+ * delete a user from the database
  * @param {number} user_id the id of the user to delete
  */
 function delete_user(user_id) {
@@ -109,7 +93,7 @@ function delete_user(user_id) {
     USER_DB.splice(user_index, 1);
 
   } catch (e) {
-    console.error(`Error deleting user:\n${e}`)
+    throw `Error deleting user:\n${e}`;
   }
 }
 
@@ -121,9 +105,12 @@ function delete_user(user_id) {
  * @param {string} city 
  */
 function edit_user(user_id, first_name, last_name, city) {
+  // make an object from the key of the properties you can edit
   let edited = { first_name, last_name, city };
   try {
+    // get the user from the database
     let user = USER_DB[get_user_index(user_id)];
+    // change properties by key
     for (let key in edited) {
       if (edited[key]) {
         user[key] = edited[key];
@@ -138,10 +125,13 @@ function get_input(msg) {
   return prompt(msg);
 }
 
+function print(msg) {
+  console.log(msg);
+}
+
 function print_user(user_id, print_children) {
   let msg = search_user_by_id(user_id).toString();
   if (print_children) {
-    let children_msg = '';
     let childern = get_user_children(user_id);
     msg += childern.length != 0 ?
       `\nchildren:\n${print_multi_user(childern)}` : `\nno children found`;
@@ -150,8 +140,10 @@ function print_user(user_id, print_children) {
 }
 
 function print_multi_user(users) {
-  // added '[1] ' because the first item is the accumulator, and ignores my formatting
-  return '[1]\n' + users
+  // added '[1] ' because the first item is the accumulator, 
+  // and ignores my formatting inside the reduce
+
+  return users.length == 0 ? '' : '[1]\n' + users
     .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}\n`);
 }
 
@@ -197,16 +189,23 @@ function main() {
   let keep_going = true;
   while (keep_going) {
     let user_input = get_input(welcome_msg);
-    if (user_input == 0) {
-      break;
-    }
     if (!COMMANDS.includes(user_input)) {
-      console.error(`${user_input} is an urecognized command.`);
+      console.error(`'${user_input}' is an urecognized command.`);
       continue;
     }
+    console.log({user_input});
+    if (user_input===null||user_input==='') {
+      //exit
+      print(`exiting database...`)
+      keep_going = false;
+      break;
+    }
     switch (user_input) {
+      case null:
       case '0':
+      case null:
         //exit
+        print(`exiting database...`)
         keep_going = false;
         break;
       case '1':
@@ -217,23 +216,37 @@ function main() {
         if (see_children == 'y') {
           if_children = true;
         }
-        console.log(print_user(id, if_children));
+        try {
+          print(print_user(id, if_children));
+        }
+        catch (e) {
+          console.error(`Error while searching fr user by id: ${e}`);
+        }
         break;
       case '2':
         //search user by string
         let str = get_input('enter string to search in users');
-        console.log(search_user_by_str(str));
+        try {
+          print(search_user_by_str(str));
+        }
+        catch (e) {
+          console.error(`Error while searching for users by string: ${e}`);
+        }
         break;
       case '3':
         //add new user
-        let input = get_input(`enter first_name last_name id city day month year parent_id
-        with space in between`);
+        let input = get_input('enter:\nfirst_name last_name id city day month year parent_id with space in between');
         let arr = input.split(' ');
         // asd asd 123132123 asd 1 1 2000
         // asda asda 223132123 asda 1 1 2000 123132123
         console.log(arr);
-        add_user(arr[0], arr[1], arr[2], arr[3]
-          , arr[4], arr[5], arr[6], arr[7]);
+        try {
+          console.log(`adding user:`);
+          add_user(arr[0], arr[1], arr[2], arr[3]
+            , arr[4], arr[5], arr[6], arr[7]);
+        } catch (e) {
+          console.error(`Error in adding new user: ${e}`);
+        }
         break;
       case '4':
         //delete existing user
@@ -246,7 +259,8 @@ function main() {
         console.table(USER_DB);
         break;
       default:
-      //dont get in here
+        //dont get in here
+        console.error(`how did you get here? msg me`);
     }
 
   }
