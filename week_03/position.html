@@ -1,4 +1,4 @@
-
+<!-- 
 
 
 
@@ -17,7 +17,106 @@
         padding-bottom: 3000px;
         background-color: cadetblue;
     }
+    .position-relative{
+        position: relative;
+        background-color: chartreuse;
+        width: 50px;
+        height: 50px;
+        top: 10px;
+        left: 20px;
+    }
+    .position-fixed{
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        background-color: coral;
+        top: 52px;
+        right: 20px;
+    }
+    .ad{
+        position: fixed;
+        bottom: 50px;
+    }
+    .dad{
+        background-color: aqua;
+        display: flex;
+    }
+    .dad-30{
+        background-color: salmon;
+        width: 30%;
+    }
+    .dad-70{
+        background-color: darkblue;
+        width: 70%;
+    }
 </style>
 
 <div class="position-absolute">abs</div>
+<div class="dad">
+    <div class="dad-30">30</div>
+    <div class="dad-70">70</div>
+</div>
+<div class="position-relative">relative</div>
+<div class="position-fixed">fixed</div>
 <div class="just-a-div">pad</div>
+<div class="ad">
+    <img src="http://images.uncyc.org/commons/e/e1/Misc_banner_annoying_scam.gif" alt="">
+</div> -->
+<style>
+  body {
+    background-color: burlywood;
+  }
+  .ear {
+    position: absolute;
+    background-color: black;
+    border: solid blue 3px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    margin-top: 75px;
+    z-index: 5;
+  }
+
+  .face {
+    position: absolute;
+    background-color: darkgrey;
+    border: solid red 3px;
+    margin-left: calc(50% - 50px);
+    height: 200px;
+    width: 200px;
+    margin-top: 120px;
+    border-radius: 150px;
+  }
+  div:hover {
+    border-radius: 0;
+  }
+  #left {
+    right: calc(50% - 5px);
+  }
+  #right {
+    left: calc(50% + 115px);
+  }
+  .eye {
+    background-color: cornsilk;
+    border: solid grey 5px;
+    border-radius: 50%;
+    position: absolute;
+    height: 80px;
+    width: 40px;
+    margin-top: 160px;
+    z-index: 10;
+  }
+  #l_eye{
+      margin-left: 56%;
+  }
+  #r_eye{
+      margin-left: 49%;
+  }
+</style>
+<div>
+  <div id="left" class="ear"></div>
+  <div id="right" class="ear"></div>
+  <div class="face"></div>
+  <div class="eye" id="l_eye"></div>
+  <div class="eye" id="r_eye"></div>
+</div>

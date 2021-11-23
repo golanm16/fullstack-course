@@ -1,13 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <Script src='./week_03_notes.js'></Script>
-</head>
-<body>
-    
-</body>
+    <script src="./week_03_notes.js"></script>
+  </head>
+  <body>
+    <form action="" method="get">
+      <div>
+        <label for="inputid">enter name: </label>
+        <br />
+        <input
+          name="inputname"
+          id="inputid"
+          type="text"
+          placeholder="name here"
+        />
+      </div>
+      <div>
+        <label for="emailid">enter email: </label>
+        <br />
+        <input
+          name="emailname"
+          id="emailid"
+          placeholder="email"
+          type="email"
+          required
+        />
+      </div>
+      <div>
+        <label for="numberid">enter number: </label>
+        <br />
+        <input
+          name="numbername"
+          id="numberid"
+          placeholder="number"
+          type="number"
+          required
+          max="12"
+          step="2"
+        />
+      </div>
+      <input type="checkbox" />
+      <button onclick="handle_click()">click!</button>
+    </form>
+    <script>
+      function handle_click() {
+        let mail = document.getElementById("emailid").value;
+        console.log(mail);
+        console.log("clicked!");
+      }
+    </script>
+  </body>
 </html>
