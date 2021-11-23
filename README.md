@@ -28,9 +28,20 @@
 
 ### 2️⃣ week 02:
 
-[📒 people database (under development)](week_02/people_db.js)
+[📒 people database](week_02/people_db.js)
 
-- ex: maintain a database of users/people
+#### ex: maintain a database of users/people
+- add user.
+- search by id.
+- search by string.
+
+### 3️⃣ week 03:
+
+[📒 people database cont. (under development)](week_03/people_db.js)
+
+#### ex: maintain a database of users/people
+- delete user and his children.
+- edit user first name/last name/city
 
 ## 🎧 my coding soundtracks
 

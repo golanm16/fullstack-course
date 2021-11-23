@@ -31,6 +31,18 @@ function generate_people() {
   console.log(search_user_by_str('l'));
 }
 
+
+function generate_id(){
+  const min_id = 100000000;
+  const max_id = 999999999;
+  let rand_id;
+  do{
+      rand_id = min_id+Math.random()*(max_id-min_id);
+      let id_exists = USER_DB.some(v=>v.id === rand_id);
+  }while(id_exists)
+  return rand_id;
+}
+
 //#region helper functions for main
 /**
  * 
@@ -38,7 +50,7 @@ function generate_people() {
  * @returns the index of the user that have the id
  */
 function get_user_index(user_id) {
-  let index = USER_DB.map(p => p.id).indexOf(user_id);
+  let index = USER_DB.map(p => p.id).indexOf(Number(user_id));
   if (index == -1) {
     throw `Error getting user location in database
 user with id ${user_id} was not fount in the database.`
