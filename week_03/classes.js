@@ -17,6 +17,7 @@ function calc_age(bday) {
     return curr_date.getFullYear() - bday.year - 1;
 }
 
+
 class BirthDate {
     /**
      * 
@@ -69,9 +70,30 @@ class Person {
         this.first_name = first_name;
         this.last_name = last_name;
         this.id = Number(id);
-        this.city = city;
+        this.city = city
+        .split(' ')
+        .map(v => v[0].toUpperCase() + v.substring(1))
+        .join(' ');;
         this.birth_date = birth_date;
         this.parent_id = parent_id ? Number(parent_id) : 0;
+    }
+    set_first_name(f_name) {
+        if (!is_valid_name(f_name)) {
+            throw `${f_name} is an invalid string for first name`;
+        }
+        this.first_name = f_name;
+    }
+    set_last_name(l_name) {
+        if (!is_valid_name(l_name)) {
+            throw `${l_name} is an invalid string for last name`;
+        }
+        this.last_name = l_name;
+    }
+    set_city(city) {
+        if (!isNaN(city)) {
+            throw `${city} is an invalid string for city`;
+        }
+        this.city = city;
     }
     toString() {
         return `person:
@@ -85,4 +107,4 @@ parent id: ${this.parent_id}.`}`;
     }
 }
 
-export { Person, BirthDate };
+export { Person, BirthDate, calc_age };

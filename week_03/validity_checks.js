@@ -18,4 +18,11 @@ function is_valid_month(month) {
     return is_valid_integer(month) && month > 0 && month < 13;
 }
 
-export { is_valid_month, is_valid_day, is_valid_name, is_valid_id }
+function validate(prop, type) {
+    return (type == 'id') ? is_valid_id(prop) :
+        (type == 'name') ? is_valid_name(prop) :
+            (type == 'day') ? is_valid_day(prop) :
+                (type == 'month') ? is_valid_id(prop) : false;
+}
+
+export { is_valid_month, is_valid_day, is_valid_name, is_valid_id, validate }

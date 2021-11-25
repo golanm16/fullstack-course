@@ -1,6 +1,6 @@
-import { BirthDate, Person } from './classes.js';
+import { BirthDate, calc_age, Person } from './classes.js';
+import { validate } from './validity_checks.js';
 
-const USER_DB = [];
 
 // TODO: URGENT!! make all th ecatches inside the functions throw their own errors
 
@@ -18,9 +18,10 @@ function generate_people() {
   add_user('juju', 'hita', 854789658, 'new new york', 11, 12, 1991, 558406589);
 
   add_user('yehezkel', 'zrubavelovich', 987654321, 'dimona', 10, 12, 1999);
+  add_user('asd', 'fff', 584868545, 'dimona', 10, 12, 1999);
+  add_user('aaffsdv', 'gdsfd', 698548524, 'dimona', 20, 5, 2020);
 
 
-  delete_user(987654321);
   //delete_user(users_db,558406589);
 
 
@@ -32,14 +33,14 @@ function generate_people() {
 }
 
 
-function generate_id(){
+function generate_id() {
   const min_id = 100000000;
   const max_id = 999999999;
   let rand_id;
-  do{
-      rand_id = min_id+Math.random()*(max_id-min_id);
-      let id_exists = USER_DB.some(v=>v.id === rand_id);
-  }while(id_exists)
+  do {
+    rand_id = min_id + Math.random() * (max_id - min_id);
+    let id_exists = USER_DB.some(v => v.id === rand_id);
+  } while (id_exists)
   return rand_id;
 }
 
@@ -128,7 +129,8 @@ function edit_user(user_id, first_name, last_name, city) {
     // change properties by key
     for (let key in edited) {
       if (edited[key]) {
-        user[key] = edited[key];
+        if (validate(edited[key], key))
+          user[key] = edited[key];
       }
     }
     return print_user(user_id);
@@ -173,6 +175,14 @@ function search_user_by_str(str) {
 }
 //#endregion
 
+function is_palindrome(str) {
+  for (i = 0; i < str.length / 2; i++) {
+    if (str[i] != str[str.length - 1 - i]) {
+      return false;
+    }
+    return true
+  }
+}
 
 function get_input(msg) {
   return prompt(msg);
@@ -187,41 +197,56 @@ function print_multi_user(users) {
   // and ignores my formatting inside the reduce
 
   return users.length == 0 ? '' : '[1]\n' + users
-    .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}\n`);
+    .reduce((prev_v, curr_v, i) => `${prev_v}\n[${i + 1}]\n${curr_v.toString()}`);
 }
 
-const COMMANDS = ['0', '1', '2', '3', '4', '5', '9'];
-
-function main() {
-  generate_people(USER_DB);
-  console.table(USER_DB);
-  let welcome_msg = `welcome to the people database made by golan.
+const USER_DB = [];
+const COMMANDS = ['0', '1', '2', '3', '4', '5', '6', '9'];
+const MORE = ['1', '2', '3', '4'];
+const more_msg = `more commads:
+[1]. show persons above some age
+[2]. a person children
+[3]. a. month%2==0
+     b. children>2
+     c. his or one of his children name is palindrome
+[4]. show every city and its residents`;
+const welcome_msg = `welcome to the people database made by golan.
   available commands:
   [1] search user by id.
   [2] search user by string.
   [3] add new user.
   [4] delete existing user.
   [5] edit existing user.
+  [6] show advanced commands
   [9] show full database(may take some time).
   [0] exit.`;
+
+function main() {
+  generate_people(USER_DB);
+  console.table(USER_DB);
+
   let keep_going = true;
   while (keep_going) {
-    // start getting user commands and act by them
-    let user_input = get_input(welcome_msg);
-    // if command is no in recognized commands
-    if (!COMMANDS.includes(user_input)) {
-      console.error(`'${user_input}' is an urecognized command.`);
+
+    const cmd = get_input(welcome_msg);
+
+    // if command is not in recognized commands
+    if (!COMMANDS.includes(cmd)) {
+      console.error(`'${cmd}' is an urecognized command.`);
       continue;
     }
+
     // act by command
-    switch (user_input) {
-      case '0':
+    switch (cmd) {
+
       //exit
+      case '0':
         print(`exiting database...`)
         keep_going = false;
         break;
-      case '1':
+
       // search user by id
+      case '1':
         // get user id
         let id = get_input('enter user id to search');
         // ask if he wants to see the person children
@@ -233,8 +258,9 @@ function main() {
           console.error(`Error while searching fr user by id: ${e}`);
         }
         break;
-      case '2':
+
       //search user by string
+      case '2':
         let str = get_input('enter string to search in users');
         try {
           print(search_user_by_str(str));
@@ -243,8 +269,9 @@ function main() {
           console.error(`Error while searching for users by string: ${e}`);
         }
         break;
-      case '3':
+
       //add new user
+      case '3':
         let input = get_input('enter:\nfirst_name last_name id city day month year parent_id with space in between');
         let arr = input.split(' ');
         console.log(arr);
@@ -256,36 +283,90 @@ function main() {
           console.error(`Error in adding new user: ${e}`);
         }
         break;
+
+      //delete existing user
       case '4':
-        //delete existing user
         let delete_id = get_input('enter the id of the person you want ot delete');
-        try{
+        try {
           print(`user deleted:\n${delete_user(delete_id)}`);
         }
-        catch(e){
+        catch (e) {
           console.error(`failed deleting user:\n${e}`);
         }
         break;
+
+      //edit existing user
       case '5':
-        //edit existing user
         let edit_id = get_input('enter the id of the user you want to change');
-        try{
+        try {
           print(print_user(edit_id));
-        }catch(e){}
-        try{
+        } catch (e) { }
+        try {
           let edit_fname = get_input(`enter new first name`);
           let edit_lname = get_input(`enter new last name`);
           let edit_city = get_input(`enter new city`);
-          print(edit_user(edit_id,edit_fname, edit_lname, edit_city));
+          print(edit_user(edit_id, edit_fname, edit_lname, edit_city));
         }
-        catch(e){
+        catch (e) {
           console.error(e);
         }
         break;
+      // cuts, queries, and reports
+      case '6':
+        try {
+
+          const adv_cmd = get_input(more_msg);
+          switch (adv_cmd) {
+
+            // filter by age
+            case '1':
+              let input_age = get_input(`enter age`);
+              if (isNaN(input_age)) {
+                throw `age need to be a number. got: ${input_age}`;
+              }
+              print(print_multi_user(USER_DB.filter(v => calc_age(v.birth_date) > input_age)));
+
+            // show children
+            case '2':
+              id = get_input(`enter the id of person to show his children`);
+              if (!validate(id, 'id')) {
+                throw `${id} is an invalid id`;
+              }
+              print_multi_user(get_user_children(id));
+
+            // show with palindrome and more
+            case '3':
+              p_arr = USER_DB.filter(v => {
+                children = get_user_children(v.id);
+                return v.birth_date.month % 2 == 0
+                  && children.length > 2
+                  && (is_palindrome(v.first_name) || childern.some(v => is_palindrome(v.first_name)))
+              });
+              print(print_multi_user(p_arr));
+
+            // print users by city
+            case '4':
+              const cities = new Set(USER_DB.map(v => v.city));
+              for (let city of cities) {
+                print(`City: ${city}.`);
+                print(print_multi_user(USER_DB.filter(v => v.city == city)));
+              }
+              print(cities);
+              break;
+
+            default:
+              print(`urecognized command`)
+          }
+        } catch (e) {
+          print(e);
+        }
+        break;
+
+      //show full database(may take some time)
       case '9':
-        //show full database(may take some time)
         console.table(USER_DB);
         break;
+      
       default:
         //dont get in here
         console.error(`how did you get here? msg me`);
