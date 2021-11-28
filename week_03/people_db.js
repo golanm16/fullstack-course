@@ -43,7 +43,7 @@ function generate_id() {
   let rand_id;
   do {
     rand_id = Math.floor(min_id + Math.random() * (max_id - min_id));
-    let id_exists = USER_DB.some(v => v.id === rand_id);
+    id_exists = USER_DB.some(v => v.id === rand_id);
   } while (id_exists)
   return rand_id;
 }

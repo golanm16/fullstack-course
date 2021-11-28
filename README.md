@@ -37,11 +37,16 @@
 
 ### 3️⃣ week 03:
 
-[📒 people database cont. (under development)](week_03/people_db.js)
+[📒 people database cont.](week_03/people_db.js)
 
 #### ex: maintain a database of users/people
 - delete user and his children.
 - edit user first name/last name/city
+
+[📒 products](week_03/classes.js)
+
+#### ex: crocery shopping in js
+- make a product object builder.
 
 ## 🎧 my coding soundtracks
 
