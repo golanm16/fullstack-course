@@ -43,6 +43,8 @@
 - delete user and his children.
 - edit user first name/last name/city
 
+### 4️⃣ week 04:
+
 [📒 products](week_03/classes.js)
 
 #### ex: crocery shopping in js
