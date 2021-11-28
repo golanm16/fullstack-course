@@ -1,0 +1,30 @@
+.list {
+  float: left;
+  border: solid black 3px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+}
+.list h2 {
+  float: initial;
+  padding: 0;
+  justify-content: center;
+  text-align: center;
+  border-bottom: solid black 3px;
+}
+.product div {
+  float: left;
+}
+.sep{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#head {
+  text-align: center;
+}
+ul{
+    margin: 0;
+    padding: 10px;
+}
+.total{
+}
