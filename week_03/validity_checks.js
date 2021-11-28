@@ -19,8 +19,9 @@ function is_valid_month(month) {
 }
 
 function validate(prop, type) {
+    const names = ['city', 'first_name', 'last_name']
     return (type == 'id') ? is_valid_id(prop) :
-        (type == 'name') ? is_valid_name(prop) :
+        (names.includes(type)) ? is_valid_name(prop) :
             (type == 'day') ? is_valid_day(prop) :
                 (type == 'month') ? is_valid_id(prop) : false;
 }
