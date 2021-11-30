@@ -15,19 +15,20 @@
 .product div {
   float: left;
 }
-.sep{
-    padding-left: 5px;
-    padding-right: 5px;
+.sep {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 #head {
   text-align: center;
 }
-ul{
-    margin: 0;
-    padding: 10px;
+ul {
+  margin: 0;
+  padding: 10px;
 }
-.total{
+.total {
+  border-color: blue;
 }
-table{
+table {
   border: solid red 3px;
 }
