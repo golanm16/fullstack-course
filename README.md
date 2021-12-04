@@ -45,7 +45,7 @@
 
 ### 4️⃣ week 04:
 
-[📒 products](week_03/classes.js)
+[📒 products](week_04/store.js)
 
 #### ex: crocery shopping in js
 - make a product object builder.
