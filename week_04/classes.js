@@ -17,7 +17,7 @@ function generate_sn() {
 
 function validate(prop, type) {
     const num_types = ['price', 'weight', 'volume']
-    if (type === 'product_name') {
+    if (type === 'productName') {
         return prop && isNaN(prop);
     }
     if (num_types.includes(type)) {
@@ -27,8 +27,8 @@ function validate(prop, type) {
 }
 
 class Product {
-    constructor(product_name, price, weight, volume, sn) {
-        const obj = { product_name, price, weight, volume, sn };
+    constructor(productName, price, weight, volume, sn) {
+        const obj = { productName, price, weight, volume, sn };
         for (let key in obj) {
             if (validate(obj[key], key)) {
                 this[key] = isNaN(obj[key]) ? obj[key] : Number(obj[key])
@@ -42,6 +42,8 @@ class Product {
     }
 }
 
-let p = new Product('asd', '5.53', 1, 1);
+// let p = new Product('asd', '5.53', 1, 1);
 
-console.log(p);
+// console.log(p);
+
+export {Product}

@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="./classes.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
+    <script src="./store.js" type="module" defer></script>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div>
@@ -15,69 +15,20 @@
       </div>
       <div class="list">
         <h2>Items</h2>
-        <ul id="item_list">
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="price">5.53</div>
-            <div class="sep">|</div>
-            <div class="price">54654</div>
-          </li>
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="price">5.53</div>
-            <div class="sep">|</div>
-            <div class="price">54654</div>
-          </li>
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="price">5.53</div>
-            <div class="sep">|</div>
-            <div class="price">54654</div>
-          </li>
-        </ul>
+        <ul id="item_list"></ul>
       </div>
       <div class="list">
         <h2>Cart</h2>
         <ul id="cart_list">
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="in_cart">2</div>
-            <div class="sep">|</div>
-            <div class="prod_sum">54654</div>
-          </li>
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="in_cart">2</div>
-            <div class="sep">|</div>
-            <div class="prod_sum">54654</div>
-          </li>
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="in_cart">2</div>
-            <div class="sep">|</div>
-            <div class="prod_sum">54654</div>
-          </li>
-          <li class="product">
-            <div class="name">banana</div>
-            <div class="sep">|</div>
-            <div class="in_cart">2</div>
-            <div class="sep">|</div>
-            <div class="prod_sum">54654</div>
-          </li>
+          
         </ul>
       </div>
-      <div class="list total">
+      <div class="total">
         <h2>Total cart price:</h2>
-        <div>559.45</div>
+        <div id='total'></div>
       </div>
     </div>
-    <table>
+    <!-- <table>
       <tr>
         <th>name</th>
         <th>age</th>
@@ -108,6 +59,6 @@
         <td>3</td>
         <td>3</td>
       </tr>
-    </table>
+    </table> -->
   </body>
 </html>

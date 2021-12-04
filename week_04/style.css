@@ -4,6 +4,8 @@
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
+  min-width: 150px;
+  min-height: 350px;
 }
 .list h2 {
   float: initial;
@@ -28,6 +30,13 @@ ul {
 }
 .total {
   border-color: blue;
+  max-width: 150px;
+  max-height: 150px;
+  float: left;
+  border: solid black 3px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
 }
 table {
   border: solid red 3px;
