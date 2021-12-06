@@ -1,6 +1,12 @@
+body {
+  background-color: rgb(34, 34, 34);
+  color: aliceblue;
+  border-color: rgb(184, 191, 197);
+}
+
 .list {
   float: left;
-  border: solid black 3px;
+  border: solid ghostwhite 3px;
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
@@ -10,9 +16,10 @@
 .list h2 {
   float: initial;
   padding: 0;
+  margin: 0;
   justify-content: center;
   text-align: center;
-  border-bottom: solid black 3px;
+  border-bottom: solid 3px;
 }
 .product div {
   float: left;
@@ -26,18 +33,46 @@
 }
 ul {
   margin: 0;
-  padding: 10px;
+  padding: 5px;
 }
 .total {
-  border-color: blue;
   max-width: 150px;
   max-height: 150px;
   float: left;
-  border: solid black 3px;
+  border: solid blue 3px;
   border-radius: 10px;
   padding: 10px;
   margin: 20px;
 }
 table {
   border: solid red 3px;
+}
+li {
+  min-width: 150px;
+  background-color: rgb(61, 61, 71);
+  border: solid grey 2px;
+  border-radius: 4px;
+  margin: 15px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+
+  /* disables text selection */
+  -webkit-user-select: none;
+  -moz-user-select: none; 
+  -khtml-user-select: none;
+  -webkit-touch-callout: none; 
+  -ms-user-select: none;
+  user-select: none; 
+}
+li:hover{
+  cursor: pointer;
+  background-color: rgb(86, 86, 100);
+  border: solid rgb(102, 102, 102) 2px;
+}
+.pName {
+  float: left;
+}
+.price {
+  float: right;
 }
