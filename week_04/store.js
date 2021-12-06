@@ -141,7 +141,6 @@ function updateTotal(valueToAdd) {
 
 function addToCart(ev) {
     const sn = this.dataset.sn;
-    console.log(ev);
     const cartItem = getCartItem(sn) ?? createCartElement(sn);
     updateCartElement(sn)
     updateTotal(getProductBySn(sn).price);
