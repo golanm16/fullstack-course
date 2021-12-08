@@ -5,6 +5,7 @@ body {
 }
 
 .list {
+  margin-top: 0;
   float: left;
   border: solid ghostwhite 3px;
   border-radius: 10px;
@@ -32,7 +33,10 @@ body {
   text-align: center;
 }
 ul {
-  margin: 0;
+  margin-top: 0;
+  /* display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr ; */
+  column-count: 3;
   padding: 5px;
 }
 .total {
@@ -53,6 +57,7 @@ li {
   border: solid grey 2px;
   border-radius: 4px;
   margin: 15px;
+  margin-top: 0;
   padding: 5px;
   display: flex;
   justify-content: space-between;
@@ -77,6 +82,7 @@ li:hover {
   float: right;
 }
 #addItemBtn {
+  color: lightblue;
   background-color: grey;
   margin: auto;
 }
