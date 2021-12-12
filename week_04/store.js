@@ -2,6 +2,8 @@
 const randItems = ['pinapple', 'krembo', 'rice', 'water', 'cola', 'bamba luli', 'chocobo'];
 const itemsElems = document.getElementById('item_list');
 const cartElems = document.getElementById('cart_list');
+const cardBack = 'https://i.pinimg.com/originals/4d/40/95/4d4095cc1994dfda327e2856d0a8c203.jpg';
+
 
 
 function randNum(a, b) {
