@@ -1,39 +1,68 @@
-.player{
-    border: black solid 3px;
-    border-radius: 3px;
-    display: flex;
-    justify-content: space-between;
+.player {
+  border: black solid 3px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
 }
-.players{
-    float: left;
-    min-width: 150px;
+.player:active{
+    transform: rotateY(120deg);
 }
-#overlay{
-    position: fixed; /* Sit on top of the page content */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+.players {
+  float: left;
+  min-width: 150px;
+  border: black solid 3px;
 }
-#board{
-    border: grey;
+.players h1{
+    
+  padding: 0;
+  margin: 0;
 }
-body{
-    background-color: dimgray;
+#playerList {
+  list-style-type: none; /* Remove bullets */
+  padding: 5px;
+  padding-top: 0;
+  margin: 0;
 }
-.box{
-    background-color: antiquewhite;
-    border: black solid 3px;
-    min-width: 150px;
-    min-height: 150px;
+#overlay {
+  font-size: 20px;
+  color: antiquewhite;
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  text-align: center;
 }
-.notSelected:hover{
-    cursor: pointer;
-    transform: scale(1.02);
-    background-color: rgb(202, 190, 173);
+#board {
+  float: left;
+  border: solid black 3px;
+  border-radius: 5px;
+  margin: 20px;
+}
+body {
+  background-color: dimgray;
+}
+.box {
+  background-color: antiquewhite;
+  border: black solid 1px;
+  min-width: 150px;
+  min-height: 150px;
+  margin: 0;
+  padding: 0;
+}
+.notSelected:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+  background-color: rgb(202, 190, 173);
+  transform: rotateY(180deg);
+}
+.box:active {
+  background-color: aquamarine;
+  transform: rotateY(120deg);
+  transform-style: preserve-3d;
 }
