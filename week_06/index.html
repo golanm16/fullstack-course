@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="./jokes.js" type="module"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div id="id">0</div>
-    <button id="click">click me for joke</button>
-    <div id="id2"></div>
-    <script src="./ajaxEx.js"></script>
+    <div id="jokeForm">
+      <input type="number" name="numOfJokes" id="numOfJokes" min="0">
+      <button id="getJokesBtn">click me for joke</button>
+      <button id="clear">clear jokes</button>
+    </div>
+    <div id="jokeRes"></div>
   </body>
 </html>
