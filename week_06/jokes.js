@@ -73,7 +73,7 @@ async function populateJokes(jokes) {
     jokesBoard.appendChild(document.createElement('tbody'));
     const rowHead = document.createElement('tr');
     rowHead.className = 'joke';
-    for (const key of ['id', 'category', 'joke']) {
+    for (const key of ['id', 'joke', 'category']) {
         const head = document.createElement('td');
         head.innerText = key;
         rowHead.appendChild(head);
@@ -148,8 +148,8 @@ function createJokeElement(joke) {
     idElem.innerText = joke.id;
     categoriesDiv.innerText = joke.categories.length == 0 ? 'None' : joke.categories.join('\n');
     jokeDiv.appendChild(idElem);
-    jokeDiv.appendChild(categoriesDiv);
     jokeDiv.appendChild(textElem);
+    jokeDiv.appendChild(categoriesDiv);
     return jokeDiv;
 }
 

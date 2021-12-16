@@ -49,6 +49,8 @@ tr {
   border-bottom: solid black 2px;
   padding-top: 10px;
   /* padding-bottom: 10px; */
+  justify-content: space-between;
+  text-align: left;
 }
 table tbody tr:nth-of-type(even),
 table tbody tr:nth-of-type(even) * {
