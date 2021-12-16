@@ -50,6 +50,16 @@
 #### ex: crocery shopping in js
 - make a product object builder.
 
+### 6️⃣ week 06:
+
+[📒 jokes](week_06/jokes.js)
+
+#### ex: get jokes by api with custom filtering
+- get a number of random jokes.
+- get joke by id, if not found show error message.
+- change chuck norris to any name you want.
+
+
 ## 🎧 my coding soundtracks
 
 <a href="http://www.youtube.com/watch?v=5qap5aO4i9A">
