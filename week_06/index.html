@@ -10,6 +10,8 @@
   </head>
   <body>
     <div id="jokeForm">
+      <input type="text" name="fName" id="fName" placeholder="first name" />
+      <input type="text" name="lName" id="lName" placeholder="last name" />
       <ul id="catList"></ul>
       <input
         type="number"
@@ -19,9 +21,17 @@
         value="1"
       />
       <button id="getJokesBtn">click me for joke</button>
+      <input
+        type="number"
+        name="jokeId"
+        id="jokeId"
+        min="0"
+        value="1"
+        placeholder="joke id"
+      />
+      <button id="getJokeByIdBtn">get joke by id</button>
       <button id="clear">clear jokes</button>
     </div>
-    <table id="jokeRes">
-    </table>
+    <table id="jokeRes"></table>
   </body>
 </html>

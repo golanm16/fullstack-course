@@ -4,28 +4,23 @@
 }
 .joke {
   display: flex;
-  /* justify-content: space-between; */
-  /* border: black solid 3px; */
-  border-radius: 3px;
 }
-.joke * {
-  /* padding-left: 20px;
-  padding-right: 20px; */
-}
-
 #jokeForm {
   min-width: 160px;
   height: 100%;
-margin-right: 20px;
+  margin-right: 20px;
   float: left;
   width: 15%;
   border-right: solid black 3px;
 }
 #jokeForm * {
-  width: auto;
   margin: 0;
   padding: 5px;
   margin-bottom: 20px;
+}
+input{
+    overflow: hidden;
+    width: 120px;
 }
 #catList li {
   height: 40px;
@@ -44,21 +39,26 @@ ul {
   float: left;
   width: 75%;
 }
-table{
-    width: 80%;
-    border: solid black 3px;
-    display: table-header-group; 
+table {
+    text-align: left;
+  width: 80%;
+  border: solid black 3px;
+  display: table-header-group;
 }
-tr{
-    border-bottom: solid black 2px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+tr {
+  border-bottom: solid black 2px;
+  padding-top: 10px;
+  /* padding-bottom: 10px; */
 }
-td{
-    border-left: solid black 1px;
-    padding-right: 20px;
-    padding-left: 20px;
+table tbody tr:nth-of-type(even),
+table tbody tr:nth-of-type(even) * {
+  background-color: #979797;
 }
-.jokeText{
-    /* width: 80%; */
+td {
+  padding: 12px 15px;
+}
+table thead * {
+  background-color: #424242;
+  color: #ffffff;
+  text-align: left;
 }
