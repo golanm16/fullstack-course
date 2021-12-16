@@ -70,6 +70,10 @@
   <img src="https://i.scdn.co/image/ab67706f000000031932c7ea794e72d82b10692c" alt="relax & unwind spotify playlist" height="150">
  </a>
 
+<a href="https://open.spotify.com/album/25r7pEf31viAbsoVHC6bQ4">
+  <img src="https://i.scdn.co/image/ab67616d00001e026d30303243e6bd56a5482e9b" alt="the elder scrolls: skyrim soundtrack" height="150">
+ </a>
+
 ## 🎙 my podcasts
 
 <a href="https://open.spotify.com/show/4XPl3uEEL9hvqMkoZrzbx5">
