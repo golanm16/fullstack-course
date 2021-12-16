@@ -6,14 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="./jokes.js" type="module"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="jokeForm">
-      <input type="number" name="numOfJokes" id="numOfJokes" min="0">
+      <ul id="catList"></ul>
+      <input
+        type="number"
+        name="numOfJokes"
+        id="numOfJokes"
+        min="0"
+        value="1"
+      />
       <button id="getJokesBtn">click me for joke</button>
       <button id="clear">clear jokes</button>
     </div>
-    <div id="jokeRes"></div>
+    <table id="jokeRes">
+    </table>
   </body>
 </html>

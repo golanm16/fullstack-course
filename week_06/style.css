@@ -4,7 +4,61 @@
 }
 .joke {
   display: flex;
-  justify-content: space-between;
-  border: black solid 3px;
+  /* justify-content: space-between; */
+  /* border: black solid 3px; */
   border-radius: 3px;
+}
+.joke * {
+  /* padding-left: 20px;
+  padding-right: 20px; */
+}
+
+#jokeForm {
+  min-width: 160px;
+  height: 100%;
+margin-right: 20px;
+  float: left;
+  width: 15%;
+  border-right: solid black 3px;
+}
+#jokeForm * {
+  width: auto;
+  margin: 0;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+#catList li {
+  height: 40px;
+  list-style-type: none; /* Remove bullets */
+  padding: 0;
+  margin: 0;
+  border: solid rgb(43, 29, 172) 2px;
+  display: flex;
+  justify-content: space-evenly;
+  vertical-align: middle;
+}
+ul {
+  justify-content: space-between;
+}
+#jokeRes {
+  float: left;
+  width: 75%;
+}
+table{
+    width: 80%;
+    border: solid black 3px;
+    display: table-header-group; 
+}
+tr{
+    border-bottom: solid black 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+td{
+    border-left: solid black 1px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.jokeText{
+    /* width: 80%; */
 }
