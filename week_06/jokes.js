@@ -1,94 +1,78 @@
-const randJokeLink = 'https://api.icndb.com/jokes/random/';
-const jokeByIdLink = 'https://api.icndb.com/jokes/';
+const jokesApiLink = 'https://api.chucknorris.io/jokes';
 
+async function getCategories() {
+    const link = jokesApiLink + '/categories';
+    console.log(link);
+    const categories = await fetch(link)
+        .then(v => v.text())
+        .then(v => JSON.parse(v));
+    return categories;
+}
 
 function clearJokes() {
     const jokes = document.getElementById('jokeRes');
     while (jokes.firstChild) {
         jokes.lastChild.remove();
     }
-    console.log('cleared');
+    console.trace('cleared');
 }
 
-async function getCategories() {
-    const link = 'https://api.icndb.com/categories';
-    const categories = await fetch(link)
-        .then(v => v.text())
-        .then(v => JSON.parse(v).value);
-    return categories;
-}
 
-function getDeletedJokes() {
-    if (!localStorage.deleted) {
-        localStorage.deleted = JSON.stringify([]);
+async function getFilteredCategories() {
+    let categoriesFiltered = [];
+    const categories = await getCategories();
+    for (const cat of categories) {
+        (document.getElementById(cat).checked) ? categoriesFiltered.push(cat) : '';
     }
-    return JSON.parse(localStorage.deleted);
-}
-
-function setDeletedJokes(deleted) {
-    return localStorage.deleted = JSON.stringify(deleted)
-}
-
-async function getJokeById(id) {
-    const link = `${jokeByIdLink}${id}${getNameForJokes()}`;
-    let joke = await fetch(link)
-        .then(v => v.text())
-        .then(v => JSON.parse(v));
-    if (joke.type == 'NoSuchQuoteException') {
-        // throw `joke with id ${id} was not found in database`;
-        const deleted = getDeletedJokes();
-        if (!deleted.includes(id)) {
-            deleted.push(id);
-            setDeletedJokes(deleted);
-        }
-        joke = {
-            value: {
-                id: '-1',
-                categories: [],
-                joke: `joke with id ${id} was not found in database,\ndeleted jokes:${deleted}`
-            }
-        };
+    if (categoriesFiltered.length !== 0 || categoriesFiltered.length != categories.length) {
+        categoriesFiltered = 'category=' + String(categoriesFiltered)
     }
-    return joke.value;
+    return categoriesFiltered;
 }
 
 async function getRandomJokes(number = 1) {
-    const catLimit = [];
-    for (const cat of await getCategories()) {
-        (!document.getElementById(cat).checked) ? catLimit.push(cat) : '';
+    const jokes = [];
+    for (let i = 0; i < number; i++) {
+        const link = `${jokesApiLink}/random?${await getFilteredCategories()}&${getNameForJokes()}`;
+        console.log(link);
+        jokes.push(await fetch(link)
+            .then(v => v.text())
+            .then(v => JSON.parse(v)));
     }
-    const catLimitStr = JSON.stringify(catLimit).replaceAll(`"`, ``);
-    const link = `${randJokeLink}${number}?exclude=${catLimitStr}${getNameForJokes()}`;
-    console.log(link);
-    const jokes = await fetch(link)
-        .then(v => v.text())
-        .then(v => JSON.parse(v).value);
     return jokes;
 }
 
-async function populateJokes(jokes) {
+async function populateJoke(joke, board = document.getElementById('jokeRes')) {
+    board.getElementsByTagName('tbody')[0].appendChild(createJokeElement(joke));
+}
+
+async function populateJokes(numOfJokes) {
     clearJokes();
     const jokesBoard = document.getElementById('jokeRes')
+
     jokesBoard.appendChild(document.createElement('thead'));
-    jokesBoard.appendChild(document.createElement('tbody'));
     const rowHead = document.createElement('tr');
     rowHead.className = 'joke';
-    for (const key of ['id', 'joke', 'category']) {
+    jokesBoard.getElementsByTagName('thead')[0].appendChild(rowHead);
+    for (const key of ['joke', 'category']) {
         const head = document.createElement('td');
         head.innerText = key;
         rowHead.appendChild(head);
     }
-    jokesBoard.getElementsByTagName('thead')[0].appendChild(rowHead);
 
-    for (const joke of jokes) {
-        jokesBoard.getElementsByTagName('tbody')[0].appendChild(createJokeElement(joke));
+    jokesBoard.appendChild(document.createElement('tbody'));
+    const link = `${jokesApiLink}/random?${await getFilteredCategories()}&${getNameForJokes()}`;
+    for (let i = 0; i < numOfJokes; i++) {
+        const joke = await fetch(link)
+            .then(v => v.text())
+            .then(v => JSON.parse(v))
+        populateJoke(joke, jokesBoard);
+
     }
 }
 
 async function populateCategories() {
-    const categories = await fetch('https://api.icndb.com/categories')
-        .then(v => v.text())
-        .then(v => JSON.parse(v).value);
+    const categories = await getCategories();
     const catList = document.getElementById('catList')
     catList.innerHTML = '';
 
@@ -98,9 +82,8 @@ async function populateCategories() {
 }
 
 function getNameForJokes() {
-    const fName = document.getElementById('fName').value;
-    const lName = document.getElementById('lName').value;
-    return (fName ? `&firstName=${fName}` : "") + (lName ? `&lastName=${lName}` : "");
+    const customName = document.getElementById('customName').value;
+    return customName ? `name=${customName}` : "";
 }
 
 async function handleJokesBtn() {
@@ -109,7 +92,9 @@ async function handleJokesBtn() {
         console.log('error: number of jokes cant be less than 0');
         return;
     }
-    populateJokes(await getRandomJokes(numOfJokes));
+
+    // populateJokes(await getRandomJokes(numOfJokes));
+    populateJokes(numOfJokes);
 }
 
 async function handleJokeByIdBtn() {
@@ -119,6 +104,27 @@ async function handleJokeByIdBtn() {
         return;
     }
     populateJokes([await getJokeById(jokeId)]);
+}
+
+
+
+async function handleJokeSearch() {
+    const searchStr = document.getElementById('jokeSearch').value;
+    if (searchStr.length < 3) {
+        console.log('need 3 chars at least to search');
+        return;
+    }
+    // /search?query={query}
+
+    const link = jokesApiLink + `/search?query=${searchStr}`;
+    const resJokes = await fetch(link)
+        .then(v => v.text())
+        .then(v => JSON.parse(v));
+    if (resJokes.total == 0) {
+        populateJokes([{ value: `no jokes found with query '${searchStr}'`, categories: [] },]);
+        return;
+    }
+    populateJokes(resJokes.result);
 }
 
 
@@ -137,6 +143,17 @@ function createCategoryElement(cat) {
 }
 
 function createJokeElement(joke) {
+    /**
+     * {"categories":[],
+     * "created_at":"2020-01-05 13:42:21.795084",
+     * "icon_url":"https://assets.chucknorris.host/img/avatar/chuck-norris.png",
+     * "id":"o97CPYB9TumQrkUlgZZMtg",
+     * "updated_at":"2020-01-05 13:42:21.795084",
+     * "url":"https://api.chucknorris.io/jokes/o97CPYB9TumQrkUlgZZMtg",
+     * "value":"Chuck Norris puts the K in knife. This is to confuse his prey."}
+     */
+
+    // console.log(joke);
     const jokeDiv = document.createElement('tr');
     const idElem = document.createElement('td');
     const textElem = document.createElement('td');
@@ -144,10 +161,10 @@ function createJokeElement(joke) {
     jokeDiv.classList.add('joke');
     // textElem.classList.add('jokeText');
 
-    textElem.innerText = joke.joke.replaceAll('&quot;', `"`);
-    idElem.innerText = joke.id;
+    textElem.innerText = joke.value.replaceAll('&quot;', `"`);
+    // idElem.innerText = joke.id;
     categoriesDiv.innerText = joke.categories.length == 0 ? 'None' : joke.categories.join('\n');
-    jokeDiv.appendChild(idElem);
+    // jokeDiv.appendChild(idElem);
     jokeDiv.appendChild(textElem);
     jokeDiv.appendChild(categoriesDiv);
     return jokeDiv;
@@ -156,7 +173,7 @@ function createJokeElement(joke) {
 function main() {
     populateCategories();
     document.getElementById('getJokesBtn').onclick = handleJokesBtn;
-    document.getElementById('getJokeByIdBtn').onclick = handleJokeByIdBtn;
+    document.getElementById('jokeSearch').onchange = handleJokeSearch;
     document.getElementById('clear').onclick = clearJokes;
 }
 

@@ -6,7 +6,7 @@
   display: flex;
 }
 #jokeForm {
-  min-width: 160px;
+  min-width: 225px;
   height: 100%;
   margin-right: 20px;
   float: left;
@@ -22,20 +22,24 @@ input{
     overflow: hidden;
     width: 120px;
 }
+#catList{
+  column-count: 2;
+}
 #catList li {
-  height: 40px;
+  height: 30px;
   list-style-type: none; /* Remove bullets */
   padding: 0;
   margin: 0;
   border: solid rgb(43, 29, 172) 2px;
   display: flex;
-  justify-content: space-evenly;
-  vertical-align: middle;
+  /* justify-content: space-evenly; */
+  /* vertical-align: middle; */
 }
 ul {
   justify-content: space-between;
 }
 #jokeRes {
+  max-width: fit-content;
   float: left;
   width: 75%;
 }
