@@ -202,7 +202,7 @@ function createJokeElement(joke) {
 function main() {
     populateCategories();
     document.getElementById('getJokesBtn').onclick = handleJokesBtn;
-    document.getElementById('jokeSearch').onchange = handleJokeSearch;
+    document.getElementById('jokeSearch').onkeyup = handleJokeSearch;
     document.getElementById('clear').onclick = clearJokes;
 }
 
