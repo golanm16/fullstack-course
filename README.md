@@ -5,6 +5,58 @@
 
 # 📚 fullstack course 2021
 
+## CheatSheet
+
+### insert react to HTML:
+
+```HTML
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+```
+
+### insert babel to HTML:
+
+```HTML
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <script type="text/babel" src="./main.js" defer></script>
+```
+
+## install express, body-parser & cors
+
+```
+  npm i express
+  npm i body-parser
+  npm i cors
+```
+
+## use express & body-parser
+
+```js
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+```
+
+## use cors
+
+```js
+const cors = require("cors");
+app.use(cors());
+```
+
+or alternatively
+
+```js
+const port = 1234;
+app.use(cors({ origin: `http://localhost:${port}` }));
+```
+
+to allow only localhost and not all domains
+
 ## 📖 my homework files:
 
 ### 0️⃣ week 00:
@@ -31,6 +83,7 @@
 [📒 people database](week_02/people_db.js)
 
 #### ex: maintain a database of users/people
+
 - add user.
 - search by id.
 - search by string.
@@ -40,6 +93,7 @@
 [📒 people database cont.](week_03/people_db.js)
 
 #### ex: maintain a database of users/people
+
 - delete user and his children.
 - edit user first name/last name/city
 
@@ -48,6 +102,7 @@
 [📒 products](week_04/store.js)
 
 #### ex: crocery shopping in js
+
 - make a product object builder.
 
 ### 6️⃣ week 06:
@@ -55,10 +110,10 @@
 [📒 jokes](week_06/jokes.js)
 
 #### ex: get jokes by api with custom filtering
+
 - get a number of random jokes.
 - get joke by id, if not found show error message.
 - change chuck norris to any name you want.
-
 
 ## 🎧 my coding soundtracks
 
