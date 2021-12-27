@@ -1,6 +1,7 @@
 <a href="https://classroom.google.com/c/NDA4NzY4OTU2Mzkz">
-  <img src="https://lh3.googleusercontent.com/-QO_htsTEOuU/YWu9EpBu60I/AAAAAAAAAcM/ye-xNHdbTgAr26SeMuIY6SiBb8mCVV10wCMACGAYYCw/s1280/beta_binyaminTech_logo%2B%25281%2529-page-001%2B%25281%2529.jpg" alt="Logo" >
+  <img height=80 src="https://lh3.googleusercontent.com/-QO_htsTEOuU/YWu9EpBu60I/AAAAAAAAAcM/ye-xNHdbTgAr26SeMuIY6SiBb8mCVV10wCMACGAYYCw/s1280/beta_binyaminTech_logo%2B%25281%2529-page-001%2B%25281%2529.jpg" alt="Logo" >
 </a>
+
 (its a link to the classroom☝️)
 
 # 📚 fullstack course 2021
@@ -48,7 +49,7 @@ const cors = require("cors");
 app.use(cors());
 ```
 
-or alternatively
+or alternatively (more strict)
 
 ```js
 const port = 1234;
