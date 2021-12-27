@@ -1,0 +1,79 @@
+* {
+  background-color: #292929;
+  color: white;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#emloyees {
+  float: left;
+}
+
+.employeeLi {
+  display: flex;
+  border: white solid 2px;
+  justify-content: space-between;
+  /* max-width: calc(max-content + 50px); */
+  min-width: auto;
+  max-width: 200px;
+  padding: 5px;
+}
+
+#forms {
+  margin-right: 30px;
+  float: left;
+  width: fit-content;
+  height: fit-content;
+  /* display: contents; */
+  border-right: white solid 1px;
+  border-bottom: white solid 1px;
+  border-bottom-right-radius: 2.5px;
+}
+
+#addEmp {
+  border: white solid 3px;
+  border-radius: 2px;
+  margin: 10px;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+#addEmp * {
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  width: 180px;
+}
+#empActions {
+  border: white solid 3px;
+  border-radius: 2px;
+  margin: 10px;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+#empActions * {
+  margin: 0;
+  padding: 0;
+  justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  width: 180px;
+}
+input {
+  overflow: hidden;
+  width: 120px;
+}
