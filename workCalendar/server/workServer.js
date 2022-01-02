@@ -47,43 +47,50 @@ const getHoursDiff = (startTime, endTime) => {
 }
 
 const getWorkerHours = (shifts) => {
-    shifts.map(v => getHoursDiff(v.start, v.end)).reduce((prev, curr) => prev + curr)
+    return shifts.map(v => getHoursDiff(v.start, v.end)).reduce((prev, curr) => prev + curr)
 }
 
 app.get('/punchtime/:id/:action/:time?', (req, res) => {
-    console.log(`got punch time ${req.params.time}`);
+    // get and check params
     const action = req.params.action;
     const id = Number(req.params.id);
     const time = Number(req.params.time ?? new Date());
     const punchDate = new Date(time);
+
+    // log worker action
+    console.log(`worker ${id} punching ${action} at ${punchDate.toLocaleString()}`);
     let msg = '';
-    let worker = workers.find(w => w.id === id);
+    let worker = workers.find(w => w.id == id);
+
+    // handle worker not found
     if (!worker) {
         worker = new Worker();
         workers.push(worker);
     }
+
+    // handle worker punched in 
     if (action === PUNCH_IN) {
+        // worker has active shift currently
+        //TODO: make it possible to override and start new
         if (worker.shifts[worker.currShiftIndex]) {
             res.status(500)
                 .send(JSON.stringify('shift was already started previously'));
-            console.log('tried punch in when already is');
             return;
         }
         worker.currShift = { start: time };
         worker.shifts.push(worker.currShift);
-        console.log(`worker ${worker.id} punched in at ${punchDate.toLocaleString()}`);
         msg = `shift started at ${punchDate.toLocaleTimeString()}`;
     }
+
+    // handle worker punched in 
     if (action === PUNCH_OUT) {
         if (!worker.shifts[worker.currShiftIndex]) {
             res.status(500)
                 .send(JSON.stringify('must punch in first'));
-            console.log('tried punch out when not punched in');
             return;
         }
         worker.shifts[worker.currShiftIndex] = { ...worker.shifts[worker.currShiftIndex], end: time };
         worker.currShiftIndex++;
-        console.log(`worker ${worker.id} punched out at ${punchDate.toLocaleString()}`);
 
         msg = `your shift was ${getHoursDiff(worker.currShift.start, time)} hours long`;
     }
@@ -93,25 +100,70 @@ app.get('/punchtime/:id/:action/:time?', (req, res) => {
 app.get('/workers', (req, res) => {
     res.send(JSON.stringify(workers));
 })
-app.get('/shifts', (req, res) => {
-    res.send(JSON.stringify(worker.shifts));
-})
-app.get('/shifts/hours', (req, res) => {
-    const worker = workers.find(w => w.id === id);
+
+app.get('/hours/:id?', (req, res) => {
+    console.log(`getting hours for worker ${req.params.id}`);
+
+    if (!req.params.id) {
+        res.send(JSON.stringify(
+            workers.some(w => w.shifts) ? workers
+                .map(w => getWorkerHours(w.shifts))
+                .reduce((prev, next) => prev + next)
+                : 'no work hours detected at all'
+        ));
+        return;
+    }
+    const worker = workers.find(w => w.id == req.params.id);
+    if (!worker) {
+        res.status(500)
+            .send(JSON.stringify(`worker id ${req.params.id} not found`));
+        return;
+    }
     if (worker.shifts.length > 0) {
-        res.send(JSON.stringify(getWorkerHours(worker.shifts)));
+        const hours = getWorkerHours(worker.shifts);
+        console.log(hours);
+        res.send(JSON.stringify(hours));
     }
     else {
-        res.send(JSON.stringify('no hours worked'));
+        res.send(JSON.stringify(`worker ${req.params.id} have no hours worked`));
     }
 })
 
-app.all("*", (req, res) => {
-    res.status(404).send("<h1> sorry :(</h1>");
+app.get('/shifts/:id?', (req, res) => {
+    console.log(`getting shifts for worker ${req.params.id}`);
+    if (!req.params.id) {
+        res.send(JSON.stringify(workers.map(w => w.shifts)));
+        return;
+    }
+    const worker = workers.find(w => w.id == req.params.id);
+    if (!worker) {
+        res.status(500)
+            .send(JSON.stringify(`worker id ${req.params.id} not found`));
+        return;
+    }
+    res.send(JSON.stringify(worker.shifts));
 })
 
-app.get('/shifts/salary', (req, res) => {
-    const worker = workers.find(w => w.id === id);
+
+app.get('/salary/:id?', (req, res) => {
+    console.log(`getting salary for worker ${req.params.id}`);
+    if (!req.params.id) {
+        if (!req.params.id) {
+            res.send(JSON.stringify(
+                workers.some(w => w.shifts) ? (workers
+                    .map(w => getSalary(w.shifts) * w.salary)
+                    .reduce((prev, next) => prev + next)) + ' ₪.'
+                    : `no workers shifts found`
+            ))
+            return;
+        }
+    }
+    const worker = workers.find(w => w.id == req.params.id);
+    if (!worker) {
+        res.status(500)
+            .send(JSON.stringify(`worker id ${req.params.id} not found`));
+        return;
+    }
     if (worker.shifts.length > 0) {
         res.send(JSON.stringify(
             `your salary is: ${getWorkerHours(worker.shifts) * worker.salary} ₪.`
@@ -123,6 +175,9 @@ app.get('/shifts/salary', (req, res) => {
 })
 
 
+app.all("*", (req, res) => {
+    res.status(404).send("<h1> 404 Not Found :(</h1>");
+})
 
 app.listen(port, () => {
     console.log(`work hours server listening at port ${port}`);

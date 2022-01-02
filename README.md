@@ -6,78 +6,46 @@
 
 # 📚 fullstack course 2021
 
-## CheatSheet
+## CheatSheet:
 
-### insert react to HTML:
+- ### [📜 cheat sheet](content/cheatSheet.md)
 
-```HTML
-  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
-```
+## my other repos:
 
-### insert babel to HTML:
-
-```HTML
-  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
-  <script type="text/babel" src="./main.js" defer></script>
-```
-
-## install express, body-parser & cors
-
-```
-  npm i express
-  npm i body-parser
-  npm i cors
-```
-
-## use express & body-parser
-
-```js
-const express = require("express");
-const bodyParser = require("body-parser");
-
-const app = express();
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-```
-
-## use cors
-
-```js
-const cors = require("cors");
-app.use(cors());
-```
-
-or alternatively (more strict)
-
-```js
-const port = 1234;
-app.use(cors({ origin: `http://localhost:${port}` }));
-```
-
-to allow only localhost and not all domains
+- #### [pure react](https://github.com/golanm16/React_course)
+- #### [memory game](https://github.com/golanm16/memory_game)
+- #### [gocode-shop](https://github.com/golanm16/gocode-shop)
 
 ## 📖 my homework files:
 
-### 0️⃣ week 00:
+### ⏲ work hours client/server:
 
-[📒 ex 1-4](week_00/week_00_hw.js)
+- #### [📒 client](workCalendar/client/workClient.js)
 
-- ex 01: fruit string
-- ex 02: guess characters from my string
-- ex 03: multiplication table
-- ex 04: 8 boom
+- #### [📒 server](workCalendar/server/workServer.js)
 
-[📒 ex 05](week_00/week_00_hw_math.js)
+### 6️⃣ week 06:
 
-- ex 05: get a random number using Math
+[📒 jokes](week_06/jokes.js)
 
-### 1️⃣ week 01:
+#### ex: get jokes by api with custom filtering
 
-[📒 animals database](week_01/animals_db.js)
+- get a number of random jokes.
+- get joke by id, if not found show error message.
+- change chuck norris to any name you want.
 
-- ex: get a list of animals and make a primitive database
+### 4️⃣ week 04:
+
+[📒 products](week_04/store.js)
+
+#### ex: crocery shopping in js
+
+- make a product object builder.
+
+#### ex: maintain a database of users/people
+
+- delete user and his children.
+- edit user first name/last name/city
 
 ### 2️⃣ week 02:
 
@@ -93,28 +61,24 @@ to allow only localhost and not all domains
 
 [📒 people database cont.](week_03/people_db.js)
 
-#### ex: maintain a database of users/people
+### 1️⃣ week 01:
 
-- delete user and his children.
-- edit user first name/last name/city
+[📒 animals database](week_01/animals_db.js)
 
-### 4️⃣ week 04:
+- ex: get a list of animals and make a primitive database
 
-[📒 products](week_04/store.js)
+### 0️⃣ week 00:
 
-#### ex: crocery shopping in js
+[📒 ex 1-4](week_00/week_00_hw.js)
 
-- make a product object builder.
+- ex 01: fruit string
+- ex 02: guess characters from my string
+- ex 03: multiplication table
+- ex 04: 8 boom
 
-### 6️⃣ week 06:
+[📒 ex 05](week_00/week_00_hw_math.js)
 
-[📒 jokes](week_06/jokes.js)
-
-#### ex: get jokes by api with custom filtering
-
-- get a number of random jokes.
-- get joke by id, if not found show error message.
-- change chuck norris to any name you want.
+- ex 05: get a random number using Math
 
 ## 🎧 my coding soundtracks
 

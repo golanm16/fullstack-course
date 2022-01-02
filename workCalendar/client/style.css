@@ -1,6 +1,7 @@
 * {
   background-color: #292929;
   color: white;
+  border-radius: 5px;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -14,10 +15,58 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 #main * {
-  display: flex;
-  width: 200px;
   margin-top: 20px;
 }
+#main button {
+  width: 300px;
+}
+#main input {
+  width: 300px;
+}
 #main {
-  display: block;
+  display: flex;
+  flex-direction: column;
+}
+.msgs {
+  display: flex;
+  flex-direction: row;
+}
+.msgs * {
+  border: solid #365875 2px;
+}
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active,
+.collapsible:hover {
+  background-color: #3b3b3b;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  flex-direction: column;
+}
+.collapsible:after {
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
