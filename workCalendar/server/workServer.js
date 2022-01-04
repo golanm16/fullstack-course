@@ -1,7 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors"
+
 const app = express();
-const cors = require("cors");
 const port = 1521;
 const PUNCH_IN = 'IN';
 const PUNCH_OUT = 'OUT';
