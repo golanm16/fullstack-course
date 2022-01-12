@@ -14,7 +14,8 @@
 
 - #### [pure react](https://github.com/golanm16/React_course)
 - #### [memory game](https://github.com/golanm16/memory_game)
-- #### [gocode-shop](https://github.com/golanm16/gocode-shop)
+- #### [gocode shop](https://github.com/golanm16/gocode-shop)
+- #### [music player](https://github.com/golanm16/music-player)
 
 ## 📖 my homework files:
 
