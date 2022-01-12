@@ -12,6 +12,7 @@ const getConnection = async () => {
     console.log(e);
   }
 };
+
 const Cat = mongoose.model("cat", { catName: String });
 
 async function saveCat() {
